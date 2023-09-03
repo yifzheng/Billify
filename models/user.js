@@ -10,12 +10,6 @@ const UserSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	receipts: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: "Receipt",
-		},
-	],
 	image: {
 		tpye: String,
 	},

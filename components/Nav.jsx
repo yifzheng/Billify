@@ -7,15 +7,23 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 import Logo from "../public/icons/bill.png"
 import Create from "../public/icons/compose.png"
 import Exit from "../public/icons/exit.png"
+import Google from "../public/icons/google.png"
 
 const Nav = () => {
-    const session = true;
-    //const { data: session } = useSession()
+    const { data: session } = useSession()
     // login providers such as Google and etc...
     const [ providers, setProviders ] = useState( null )
     const [ toggleDropDown, setToggleDropDown ] = useState( false )
 
-
+    // on load of page
+    useEffect( () => {
+        const setUpProviders = async () => {
+            const response = await getProviders()
+            setProviders( response )
+        }
+        setUpProviders()
+    }, [] )
+    console.log( providers )
     return (
         <nav className='flex-between w-full mb-16 pt-3'>
             <Link href={ "/" } className='flex gap-2 flex-center' >
@@ -50,15 +58,13 @@ const Nav = () => {
                                     alt='Create Receipt'
                                 />
                             </button>
-                            <Link href={ "/profile" }>
-                                <Image
-                                    src={ Logo }
-                                    width={ 37 }
-                                    height={ 37 }
-                                    className='rounded-full'
-                                    alt='profile'
-                                />
-                            </Link>
+                            <Image
+                                src={ session?.user.image }
+                                width={ 40 }
+                                height={ 40 }
+                                className='rounded-full border-solid border-2 border-amber-600'
+                                alt='profile'
+                            />
                         </div>
                     )
                         :
@@ -66,7 +72,13 @@ const Nav = () => {
                             <>
                                 { providers &&
                                     Object.values( providers ).map( ( provider ) => (
-                                        <button type='button' key={ provider.name } onClick={ () => signIn( provider.id ) } className='green_btn'>
+                                        <button type='button' key={ provider.name } onClick={ () => signIn( provider.id ) } className='black_btn flex items-center justify-center gap-2'>
+                                            <Image
+                                                src={ provider.name === "Google" && Google }
+                                                width={ 25 }
+                                                height={ 25 }
+                                                alt='google'
+                                            />
                                             Sign In
                                         </button>
                                     ) ) }
@@ -82,24 +94,17 @@ const Nav = () => {
                         (
                             <div className='flex'>
                                 <Image
-                                    src={ Logo }
-                                    width={ 37 }
-                                    height={ 37 }
-                                    className='rounded-full cursor-pointer'
+                                    src={ session?.user.image }
+                                    width={ 40 }
+                                    height={ 40 }
+                                    className='rounded-full border-solid border-2 border-amber-600 cursor-pointer'
                                     alt='profile'
                                     onClick={ () => setToggleDropDown( ( prev ) => !prev ) }
                                 />
                                 { toggleDropDown && (
                                     <div className="dropdown">
                                         <Link
-                                            href={ "/profile" }
-                                            className='dropdown_link'
-                                            onClick={ () => setToggleDropDown( false ) }
-                                        >
-                                            My Profile
-                                        </Link>
-                                        <Link
-                                            href={ "/profile" }
+                                            href={ "/create-receipt" }
                                             className='dropdown_link'
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
@@ -109,7 +114,7 @@ const Nav = () => {
                                             setToggleDropDown( false )
                                             signOut();
                                         } }
-                                            className='mt-5 w-full signout_btn'
+                                            className='mt-5 w-max signout_btn'
                                         >
                                             Sign Out
                                         </button>
@@ -122,7 +127,13 @@ const Nav = () => {
                             <>
                                 { providers &&
                                     Object.values( providers ).map( ( provider ) => (
-                                        <button type='button' key={ provider.name } onClick={ () => signIn( provider.id ) } className='green_btn'>
+                                        <button type='button' key={ provider.name } onClick={ () => signIn( provider.id ) } className='black_btn flex items-center justify-center gap-2'>
+                                            <Image
+                                                src={ provider.name === "Google" && Google }
+                                                width={ 25 }
+                                                height={ 25 }
+                                                alt='google'
+                                            />
                                             Sign In
                                         </button>
                                     ) ) }
