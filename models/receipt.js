@@ -16,9 +16,12 @@ const ReceiptSchema = new Schema({
 				required: true,
 				default: 1,
 			},
-			owner: {
-				type: String,
-			},
+			owners: [
+				{
+					type: String,
+					required: true,
+				},
+			],
 		},
 	],
 	tax: {

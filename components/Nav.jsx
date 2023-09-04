@@ -23,7 +23,7 @@ const Nav = () => {
         }
         setUpProviders()
     }, [] )
-    
+
     return (
         <nav className='flex-between w-full mb-16 pt-3'>
             <Link href={ "/" } className='flex gap-2 flex-center' >
@@ -42,21 +42,23 @@ const Nav = () => {
                 {
                     session ? (
                         <div className="flex gap-3 md:gap-5 items-center">
-                            <Link href={ "/create-receipt" } className='green_btn'>
+                            <Link href={ "/create-receipt" } className='green_btn flex gap-1'>
                                 <Image
                                     src={ Create }
                                     width={ 25 }
                                     height={ 25 }
                                     alt='Create Receipt'
                                 />
+                                <span className='text-sm font-medium'>Create</span>
                             </Link>
-                            <button type="button" onClick={ signOut } className='outline_btn'>
+                            <button type="button" onClick={ signOut } className='outline_btn flex gap-1'>
                                 <Image
                                     src={ Exit }
                                     width={ 25 }
                                     height={ 25 }
                                     alt='Create Receipt'
                                 />
+                                <span className='text-sm font-medium'>Sign Out</span>
                             </button>
                             <Image
                                 src={ session?.user.image }
