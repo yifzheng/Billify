@@ -1,6 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
 const ReceiptSchema = new Schema({
+	name: {
+		type: String,
+		required: true,
+	},
 	items: [
 		{
 			name: {
