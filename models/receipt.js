@@ -1,6 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
 const ReceiptSchema = new Schema({
+	name: {
+		type: String,
+		required: true,
+	},
 	items: [
 		{
 			name: {
@@ -16,9 +20,12 @@ const ReceiptSchema = new Schema({
 				required: true,
 				default: 1,
 			},
-			owner: {
-				type: String,
-			},
+			owners: [
+				{
+					type: String,
+					required: true,
+				},
+			],
 		},
 	],
 	tax: {

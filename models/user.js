@@ -11,8 +11,9 @@ const UserSchema = new Schema({
 		required: true,
 	},
 	image: {
-		tpye: String,
-	},
+		type: String, 
+		default: ''
+	}
 });
 
 const User = models.User || model("User", UserSchema);
