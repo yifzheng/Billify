@@ -12,7 +12,7 @@ const ItemField = ( { item, index } ) => {
                         <span className='font-satoshi font-medium text-sm text-gray-700'>Name</span>
                         <input
                             type="text"
-                            placeholder='Name: Omurice'
+                            placeholder='Omurice'
                             name='description'
                             value={ item.description }
                             className='form_input'
@@ -22,7 +22,7 @@ const ItemField = ( { item, index } ) => {
                         <span className='font-satoshi font-medium text-sm text-gray-700'>Quantity</span>
                         <input
                             type="number"
-                            placeholder='Quanity: 2'
+                            placeholder='2'
                             name='quantity'
                             className='form_input'
                             value={ item.quantity }
@@ -31,7 +31,7 @@ const ItemField = ( { item, index } ) => {
                         <span className='font-satoshi font-medium text-sm text-gray-700'>Price</span>
                         <input
                             type="number"
-                            placeholder='Price: $12'
+                            placeholder='$12'
                             name='price'
                             className='form_input'
                             value={ item.price }
