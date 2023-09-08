@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import X from "../public/icons/x.png"
 import Image from "next/image";
 

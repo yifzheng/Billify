@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import ItemField from './ItemField'
@@ -10,25 +10,42 @@ import Remove from "../public/icons/remove.png"
 import useReceiptStore from '@context/receiptStore'
 
 const Form = ( { type } ) => {
-    const { resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal } = useReceiptStore()
+    const { resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, reset } = useReceiptStore()
     const router = useRouter()
-    console.log( items )
+    const { data: session } = useSession()
+
     // handle item change
-    const handleItemChange = ( e, index, item ) => {
-        const { name, value } = e.target; // deconstructing the name of input and value of input
+    const handleItemChange = ( index, item ) => {
         const updatedItems = [ ...items ]
-        updatedItems[ index ] = { ...item, [ name ]: value }
+        updatedItems[ index ] = { ...item }
         setItems( updatedItems )
     }
     // add another item to state
     const handleAddItem = () => {
-        setItems( [ ...items, { name: '', price: 0, quantity: 1, owners: [] } ] );
+        setItems( [ ...items, { name: '', price: undefined, quantity: 1, members: [] } ] );
     };
     // remove item from state
     const handleRemoveItem = ( item ) => {
         const updatedItems = items.filter( ( i ) => i !== item );
         setItems( updatedItems );
     };
+
+    const handleCancel = () => {
+        reset()
+        router.push( "/" )
+    }
+    // create the receipt and save to state if not logged in
+    const handleCreate = () => {
+        const receipt = {
+            resturantName,
+            items,
+            tax,
+            tip,
+            total,
+            creator: session?.user.id
+        }
+        console.log( receipt )
+    }
 
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16'>
@@ -109,12 +126,10 @@ const Form = ( { type } ) => {
                         <span className='font-medium'>Back</span>
                     </button>
                     <div className="buttons flex-end w-1/2 max-w-1/2 gap-4 float-right">
-                        <Link href={ "/" }>
-                            <span className='font-medium'>Cancel</span>
-                        </Link>
+                        <span className='font-medium' onClick={ handleCancel }>Cancel</span>
 
 
-                        <button type='button' onClick={ () => { } } className={ `green_btn flex gap-1` }>
+                        <button type='button' onClick={ handleCreate } className={ `green_btn flex gap-1` }>
                             <span className='font-medium'>Create</span>
                         </button>
                     </div>

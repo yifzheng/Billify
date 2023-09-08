@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MemberField from "./MemberField";
 import useReceiptStore from "@context/receiptStore";
@@ -11,7 +10,7 @@ const Members = () => {
 
     // handle member data changing
     const handleMemberChange = ( e, member, index ) => {
-        const name = e.target.value
+        const name = e.target.value.toLowerCase()
         const updatedMembers = [ ...members ]
         updatedMembers[ index ] = { ...member, name }
         setMembers( updatedMembers )
@@ -56,9 +55,10 @@ const Members = () => {
         }
     }
 
+
     return (
         <section className="flex-start flex-col gap-4 w-full max-w-full">
-            <h1 className="head_text green_gradient">Step 1: Members</h1>
+            <h1 className="head_text orange_gradient">Step 1: Members</h1>
             <span className="desc2 mb-10">
                 Who participated in the payment for the receipt? This individual placed an order during the outing.
             </span>
@@ -74,8 +74,8 @@ const Members = () => {
                     />
                 ) ) }
             </div>
-
             <button className="black_btn mt-10" onClick={ handleContinue }>Continue</button>
+
         </section>
     );
 };

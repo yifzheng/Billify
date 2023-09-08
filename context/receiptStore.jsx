@@ -1,10 +1,10 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
 const useReceiptStore = create( ( set ) => ( {
     members: [ { name: '' } ],
     resturantName: "",
     items: [ {
-        name: '', price: 0, quantity: 1, owners: []
+        name: '', price: undefined, quantity: 1, members: []
     } ],
     tax: undefined,
     tip: undefined,
@@ -12,9 +12,19 @@ const useReceiptStore = create( ( set ) => ( {
     setMembers: ( members ) => set( { members } ),
     setResturantName: ( resturantName ) => set( { resturantName } ),
     setItems: ( items ) => set( { items } ),
-    setTax: ( tax ) => setTax( { tax } ),
+    setTax: ( tax ) => set( { tax } ),
     setTip: ( tip ) => set( { tip } ),
-    setTotal: ( total ) => set( { total } )
+    setTotal: ( total ) => set( { total } ),
+    reset: () => set( {
+        members: [ { name: '' } ],
+        resturantName: "",
+        items: [ {
+            name: '', price: undefined, quantity: 1, members: []
+        } ],
+        tax: undefined,
+        tip: undefined,
+        total: undefined,
+    } )
 } ) );
 
 export default useReceiptStore;

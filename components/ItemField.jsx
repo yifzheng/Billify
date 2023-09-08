@@ -1,6 +1,29 @@
-import React from "react";
+'use client'
+
+import useReceiptStore from "@context/receiptStore";
+import { useState } from "react";
+import MemberBubble from "./MemberBubble";
 
 const ItemField = ( { item, index, handleItemChange } ) => {
+    const { members } = useReceiptStore() // retrieve members created in previous step
+    const [ owners, setOwners ] = useState( item.members || [] )
+
+    // remove names from owner state
+    const handleRemoveBubble = ( index ) => {
+        const updatedOwners = [ ...owners ]
+        updatedOwners.splice( index, 1 )
+        setOwners( updatedOwners )
+        handleItemChange( index - 1, { ...item, members: updatedOwners } )
+    }
+
+    // add name to owner state
+    const handleAddOwner = ( e ) => {
+        const containsValue = owners.some( ( owner ) => owner.name.includes( e.target.value ) )
+        if ( !containsValue ) {
+            setOwners( [ ...owners, { name: e.target.value } ] )
+            handleItemChange( index - 1, { ...item, members: [ ...owners, { name: e.target.value } ] } )
+        }
+    }
 
     return (
         <label>
@@ -18,7 +41,7 @@ const ItemField = ( { item, index, handleItemChange } ) => {
                             placeholder="Omurice"
                             name="name"
                             value={ item.name }
-                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, name: e.target.value } ) }
+                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, name: e.target.value } ) }
                             className="form_input"
                         />
                     </label>
@@ -32,7 +55,7 @@ const ItemField = ( { item, index, handleItemChange } ) => {
                             name="quantity"
                             className="form_input"
                             value={ item.quantity }
-                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, quantity: e.target.value } ) }
+                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, quantity: e.target.value } ) }
                         />
                     </label>
                     <label className="w-1/3">
@@ -46,23 +69,37 @@ const ItemField = ( { item, index, handleItemChange } ) => {
                             className="form_input"
                             step={ 0.01 }
                             value={ item.price }
-                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, price: e.target.value } ) }
+                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, price: e.target.value } ) }
                         />
                     </label>
                 </section>
                 <section>
                     <label className="w-full">
                         <span className="font-satoshi font-medium text-sm text-gray-700">
-                            Owners
+                            Members
                         </span>
-                        <input
-                            type="text"
+                        <div className="flex-start sm:max-w-full my-2">
+                            <div className="flex-start flex-wrap sm:flex-row gap-1">
+                                { owners.map( ( owner, idx ) =>
+                                (
+                                    <MemberBubble key={ idx } owner={ owner } index={ idx } onChange={ handleRemoveBubble } />
+                                ) ) }
+                            </div>
+
+                        </div>
+                        <select
                             placeholder="John Doe, Jane Doe, ..."
                             name="owners"
-                            value={ "" }
                             className="form_input"
-                            onChange={ () => { } }
-                        />
+                            onChange={ ( e ) => handleAddOwner( e ) }
+                            required
+                        >
+                            <option value="" selected>Select all members that ordered this item</option>
+                            { members.map( ( member, index ) =>
+                            (
+                                <option value={ member.name } key={ index } className="text-base py-2">{ member.name }</option>
+                            ) ) }
+                        </select>
                     </label>
                 </section>
             </section>
