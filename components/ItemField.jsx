@@ -21,7 +21,7 @@ const ItemField = ({ item, index }) => {
                             className="form_input"
                         />
                     </label>
-                    <label className="w-1/4">
+                    <label className="w-1/3">
                         <span className="font-satoshi font-medium text-sm text-gray-700">
                             Quantity
                         </span>
@@ -34,7 +34,7 @@ const ItemField = ({ item, index }) => {
                             onChange={() => {}}
                         />
                     </label>
-                    <label className="w-1/4">
+                    <label className="w-1/3">
                         <span className="font-satoshi font-medium text-sm text-gray-700">
                             Price
                         </span>

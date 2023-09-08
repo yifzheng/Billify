@@ -87,7 +87,7 @@
 }
 
 .black_btn {
-	@apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+	@apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-base font-inter flex items-center justify-center;
 }
 
 .signout_btn {
@@ -99,7 +99,7 @@
 }
 
 .start_btn {
-	@apply rounded-full border border-black bg-gradient-to-r from-blue-600 to-cyan-600 py-1.5 px-6 py-2 text-white transition-all text-center text-2xl font-inter flex items-center justify-center;
+	@apply rounded-full border border-black bg-gradient-to-r from-blue-600 to-cyan-600 py-1.5 px-6 py-2 text-white transition-all text-center text-xl font-inter flex items-center justify-center;
 }
 
 .remove_btn {
@@ -147,7 +147,7 @@
 }
 /* Nav Component */
 .logo_text {
-	@apply max-sm:hidden font-satoshi font-bold text-3xl text-black tracking-wide;
+	@apply max-sm:hidden font-inter font-bold text-4xl  tracking-wide;
 }
 
 .dropdown {
@@ -160,6 +160,10 @@
 
 .form_input {
 	@apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+.form_input_member {
+	@apply w-full flex rounded-lg mt-2 p-3 pr-24 text-ellipsis overflow-hidden text-lg text-gray-500 outline-0;
 }
 
 .form_input_12 {

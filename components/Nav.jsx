@@ -34,7 +34,7 @@ const Nav = () => {
                     alt='billify_logo'
                     className='object-contain'
                 />
-                <span className='logo_text'>Billify</span>
+                <span className='logo_text blue_gradient'>Billify</span>
             </Link>
 
             {/* Desktop Navigation (When min width is greater than 640px display flex else hidden) */ }
@@ -42,7 +42,7 @@ const Nav = () => {
                 {
                     session ? (
                         <div className="flex gap-3 md:gap-5 items-center">
-                            <Link href={ "/create-receipt/receipt" } className='green_btn flex gap-1'>
+                            <Link href={ "/create-receipt/members" } className='green_btn flex gap-1'>
                                 <Image
                                     src={ Create }
                                     width={ 25 }
@@ -106,7 +106,7 @@ const Nav = () => {
                                 { toggleDropDown && (
                                     <div className="dropdown">
                                         <Link
-                                            href={ "/create-receipt/receipt" }
+                                            href={ "/create-receipt/members" }
                                             className='dropdown_link'
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
