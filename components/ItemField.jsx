@@ -1,10 +1,11 @@
 import React from "react";
 
-const ItemField = ({ item, index }) => {
+const ItemField = ( { item, index, handleItemChange } ) => {
+
     return (
         <label>
             <span className="font-satoshi font-semibold text-lg text-gray-700 ">
-                Item <i>#{index}</i>
+                Item <i>#{ index }</i>
             </span>
             <section className="item-field flex-col ">
                 <section className="flex-start gap-2">
@@ -15,9 +16,9 @@ const ItemField = ({ item, index }) => {
                         <input
                             type="text"
                             placeholder="Omurice"
-                            name="description"
-                            value={item.description}
-                            onChange={() => {}}
+                            name="name"
+                            value={ item.name }
+                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, name: e.target.value } ) }
                             className="form_input"
                         />
                     </label>
@@ -30,8 +31,8 @@ const ItemField = ({ item, index }) => {
                             placeholder="2"
                             name="quantity"
                             className="form_input"
-                            value={item.quantity}
-                            onChange={() => {}}
+                            value={ item.quantity }
+                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, quantity: e.target.value } ) }
                         />
                     </label>
                     <label className="w-1/3">
@@ -43,8 +44,9 @@ const ItemField = ({ item, index }) => {
                             placeholder="$12"
                             name="price"
                             className="form_input"
-                            value={item.price}
-                            onChange={() => {}}
+                            step={ 0.01 }
+                            value={ item.price }
+                            onChange={ ( e ) => handleItemChange( e, index - 1, { ...item, price: e.target.value } ) }
                         />
                     </label>
                 </section>
@@ -57,9 +59,9 @@ const ItemField = ({ item, index }) => {
                             type="text"
                             placeholder="John Doe, Jane Doe, ..."
                             name="owners"
-                            value={""}
+                            value={ "" }
                             className="form_input"
-                            onChange={() => {}}
+                            onChange={ () => { } }
                         />
                     </label>
                 </section>

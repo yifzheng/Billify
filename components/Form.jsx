@@ -7,18 +7,22 @@ import ItemField from './ItemField'
 import Image from 'next/image'
 import Add from "../public/icons/add.png"
 import Remove from "../public/icons/remove.png"
+import useReceiptStore from '@context/receiptStore'
 
 const Form = ( { type } ) => {
-    const [ items, setItems ] = useState( [
-        {
-            description: '', price: undefined, quantity: 1, owners: []
-        }
-    ] )
+    const { resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal } = useReceiptStore()
     const router = useRouter()
-
+    console.log( items )
+    // handle item change
+    const handleItemChange = ( e, index, item ) => {
+        const { name, value } = e.target; // deconstructing the name of input and value of input
+        const updatedItems = [ ...items ]
+        updatedItems[ index ] = { ...item, [ name ]: value }
+        setItems( updatedItems )
+    }
     // add another item to state
     const handleAddItem = () => {
-        setItems( [ ...items, { description: '', price: undefined, quantity: 1, owners: [] } ] );
+        setItems( [ ...items, { name: '', price: 0, quantity: 1, owners: [] } ] );
     };
     // remove item from state
     const handleRemoveItem = ( item ) => {
@@ -36,9 +40,9 @@ const Form = ( { type } ) => {
                     <span className='font-satoshi font-semibold text-lg text-gray-700'>
                         Restaurant Name
                     </span>
-                    <input type="text" required className='form_input' placeholder='Akira&#39;s Omurice' />
+                    <input type="text" required className='form_input' placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
                 </label>
-                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } /> ) ) }
+                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } /> ) ) }
                 <div className="buttons flex max-w-full gap-1">
                     <button type='button' onClick={ handleAddItem } className='green_btn flex gap-1 w-1/2'>
                         <Image
@@ -65,10 +69,12 @@ const Form = ( { type } ) => {
                         <label className="w-full">
                             <span className='font-satoshi font-semibold text-lg text-gray-700'>Tax</span>
                             <input
-                                type="text"
-                                placeholder='Tax: $10.98'
+                                type="number"
+                                placeholder='10.98'
                                 name='tax'
-
+                                value={ tax }
+                                step={ 0.01 }
+                                onChange={ ( e ) => setTax( e.target.value ) }
                                 className='form_input'
                             />
                         </label>
@@ -76,18 +82,24 @@ const Form = ( { type } ) => {
                             <span className='font-satoshi font-semibold text-lg text-gray-700'>Tips</span>
                             <input
                                 type="number"
-                                placeholder='Tip: $11.00'
+                                placeholder='11.00'
                                 name='tip'
                                 className='form_input'
+                                step={ 0.01 }
+                                value={ tip }
+                                onChange={ ( e ) => setTip( e.target.value ) }
                             />
                         </label>
                         <label className="w-full">
                             <span className='font-satoshi font-semibold text-lg text-gray-700'>Total</span>
                             <input
                                 type="number"
-                                placeholder='Total: $24.35'
+                                placeholder='24.35'
                                 name='total'
                                 className='form_input'
+                                step={ 0.01 }
+                                value={ total }
+                                onChange={ ( e ) => setTotal( e.target.value ) }
                             />
                         </label>
                     </div>

@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MemberField from "./MemberField";
+import useReceiptStore from "@context/receiptStore";
 
 const Members = () => {
-    const [ members, setMembers ] = useState( [ { name: "" } ] ); // state storing all the members entered by the user
+    const { members, setMembers } = useReceiptStore() // state storing all the members entered by the user
     const router = useRouter()
 
     // handle member data changing
@@ -50,7 +51,6 @@ const Members = () => {
 
     const handleContinue = () => {
         const notEmpty = members.every( ( member ) => member.name.trim().length > 1 )
-        console.log( notEmpty )
         if ( notEmpty ) {
             router.push( "/create-receipt/receipt" )
         }
