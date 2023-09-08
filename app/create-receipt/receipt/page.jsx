@@ -1,5 +1,9 @@
+'use client'
+
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Form from '@components/Form'
-import React from 'react'
+
 
 const CreateReceipt = () => {
     const { data: session } = useSession()
