@@ -42,7 +42,7 @@ const Nav = () => {
                 {
                     session ? (
                         <div className="flex gap-3 md:gap-5 items-center">
-                            <Link href={ "/create-receipt" } className='green_btn flex gap-1'>
+                            <Link href={ "/create-receipt/receipt" } className='green_btn flex gap-1'>
                                 <Image
                                     src={ Create }
                                     width={ 25 }
@@ -106,7 +106,7 @@ const Nav = () => {
                                 { toggleDropDown && (
                                     <div className="dropdown">
                                         <Link
-                                            href={ "/create-receipt" }
+                                            href={ "/create-receipt/receipt" }
                                             className='dropdown_link'
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
