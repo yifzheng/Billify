@@ -8,9 +8,10 @@ import Image from 'next/image'
 import Add from "../public/icons/add.png"
 import Remove from "../public/icons/remove.png"
 import useReceiptStore from '@context/receiptStore'
+import { calculateContributions } from '@utils/contribution'
 
 const Form = ( { type } ) => {
-    const { resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, reset } = useReceiptStore()
+    const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, reset } = useReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
 
@@ -35,7 +36,8 @@ const Form = ( { type } ) => {
         router.push( "/" )
     }
     // create the receipt and save to state if not logged in
-    const handleCreate = () => {
+    const handleCreate = ( e ) => {
+        e.preventDefault()
         const receipt = {
             resturantName,
             items,
@@ -44,6 +46,7 @@ const Form = ( { type } ) => {
             total,
             creator: session?.user.id
         }
+        receipt.contribution = calculateContributions( receipt, members )
         console.log( receipt )
     }
 
@@ -52,6 +55,7 @@ const Form = ( { type } ) => {
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 2: { type } Receipt</span></h1>
             <form
                 className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
+                onSubmit={ e => handleCreate( e ) }
             >
                 <label htmlFor="">
                     <span className='font-satoshi font-semibold text-lg text-gray-700'>
@@ -129,7 +133,7 @@ const Form = ( { type } ) => {
                         <span className='font-medium' onClick={ handleCancel }>Cancel</span>
 
 
-                        <button type='button' onClick={ handleCreate } className={ `green_btn flex gap-1` }>
+                        <button type='submit' className={ `green_btn flex gap-1` }>
                             <span className='font-medium'>Create</span>
                         </button>
                     </div>

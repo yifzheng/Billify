@@ -10,7 +10,7 @@ const Members = () => {
 
     // handle member data changing
     const handleMemberChange = ( e, member, index ) => {
-        const name = e.target.value.toLowerCase()
+        const name = e.target.value.trim().toLowerCase()
         const updatedMembers = [ ...members ]
         updatedMembers[ index ] = { ...member, name }
         setMembers( updatedMembers )
