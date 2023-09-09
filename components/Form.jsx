@@ -11,7 +11,7 @@ import useReceiptStore from '@context/receiptStore'
 import { calculateContributions } from '@utils/contribution'
 
 const Form = ( { type } ) => {
-    const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, reset } = useReceiptStore()
+    const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, setContribution, reset } = useReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
 
@@ -21,16 +21,19 @@ const Form = ( { type } ) => {
         updatedItems[ index ] = { ...item }
         setItems( updatedItems )
     }
+    
     // add another item to state
     const handleAddItem = () => {
         setItems( [ ...items, { name: '', price: undefined, quantity: 1, members: [] } ] );
     };
+
     // remove item from state
     const handleRemoveItem = ( item ) => {
         const updatedItems = items.filter( ( i ) => i !== item );
         setItems( updatedItems );
     };
 
+    // reset creation process
     const handleCancel = () => {
         reset()
         router.push( "/" )
@@ -46,7 +49,9 @@ const Form = ( { type } ) => {
             total,
             creator: session?.user.id
         }
-        receipt.contribution = calculateContributions( receipt, members )
+        const contribution = calculateContributions( receipt, members )
+        receipt.contribution = contribution;
+        setContribution( contribution )
         console.log( receipt )
     }
 
