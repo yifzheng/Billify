@@ -21,7 +21,7 @@ const Form = ( { type } ) => {
         updatedItems[ index ] = { ...item }
         setItems( updatedItems )
     }
-    
+
     // add another item to state
     const handleAddItem = () => {
         setItems( [ ...items, { name: '', price: undefined, quantity: 1, members: [] } ] );
@@ -52,7 +52,7 @@ const Form = ( { type } ) => {
         const contribution = calculateContributions( receipt, members )
         receipt.contribution = contribution;
         setContribution( contribution )
-        console.log( receipt )
+        setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
     }
 
     return (
