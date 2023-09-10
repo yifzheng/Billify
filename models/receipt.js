@@ -20,10 +20,12 @@ const ReceiptSchema = new Schema({
 				required: true,
 				default: 1,
 			},
-			owners: [
+			members: [
 				{
-					type: String,
-					required: true,
+					name: {
+						type: String,
+						required: true,
+					},
 				},
 			],
 		},
@@ -44,6 +46,18 @@ const ReceiptSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: "User",
 	},
+	contribution: [
+		{
+			member: {
+				type: String,
+				required: true,
+			},
+			contribution: {
+				tpye: Number,
+				required: true,
+			},
+		},
+	],
 });
 
 const Receipt = models.Receipt || model("Receipt", ReceiptSchema);

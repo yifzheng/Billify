@@ -10,6 +10,10 @@ const handler = NextAuth({
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 		}),
 	],
+	session: {
+		jwt: true,
+		maxAge: 7 * 24 * 60 * 60, // 7 days
+	},
 	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		async session({ session }) {

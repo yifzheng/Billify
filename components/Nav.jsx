@@ -4,13 +4,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 import Logo from "../public/icons/bill.png"
 import Create from "../public/icons/compose.png"
 import Exit from "../public/icons/exit.png"
 import Google from "../public/icons/google.png"
+import useReceiptStore from '@context/receiptStore'
 
 const Nav = () => {
     const { data: session } = useSession()
+    const router = useRouter()
+    const { reset } = useReceiptStore()
     // login providers such as Google and etc...
     const [ providers, setProviders ] = useState( null )
     const [ toggleDropDown, setToggleDropDown ] = useState( false )
@@ -24,9 +28,15 @@ const Nav = () => {
         setUpProviders()
     }, [] )
 
+    // handle home click
+    const handleHome = () => {
+        reset()
+        router.push( "/" )
+    }
+
     return (
         <nav className='flex-between w-full mb-16 pt-3'>
-            <Link href={ "/" } className='flex gap-2 flex-center' >
+            <div className='flex gap-2 flex-center cursor-pointer' onClick={handleHome}>
                 <Image
                     src={ Logo }
                     width={ 45 }
@@ -34,15 +44,15 @@ const Nav = () => {
                     alt='billify_logo'
                     className='object-contain'
                 />
-                <span className='logo_text'>Billify</span>
-            </Link>
+                <span className='logo_text blue_gradient'>Billify</span>
+            </div>
 
             {/* Desktop Navigation (When min width is greater than 640px display flex else hidden) */ }
             <div className="sm:flex hidden">
                 {
                     session ? (
                         <div className="flex gap-3 md:gap-5 items-center">
-                            <Link href={ "/create-receipt" } className='green_btn flex gap-1'>
+                            <Link href={ "/create-receipt/members" } className='green_btn flex gap-1'>
                                 <Image
                                     src={ Create }
                                     width={ 25 }
@@ -106,7 +116,7 @@ const Nav = () => {
                                 { toggleDropDown && (
                                     <div className="dropdown">
                                         <Link
-                                            href={ "/create-receipt" }
+                                            href={ "/create-receipt/members" }
                                             className='dropdown_link'
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
