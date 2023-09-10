@@ -13,12 +13,11 @@ const Contribution = () => {
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 3: Contributions</span></h1>
             <br />
             <br />
-            <div className='flex-start flex-col gap-2 sm:w-[50%] w-full glassmorphism'>
-                <header className='flex justify-between w-full'>
+            <div className='flex-start flex-col gap-3 sm:w-[50%] w-full glassmorphism'>
+                <header className='flex justify-between w-full mb-4'>
                     <span className='sm:text-2xl text-base'><b>Member Name</b></span>
                     <span className='sm:text-2xl text-base'><b>Amount ($)</b></span>
                 </header>
-                <br />
                 { contribution.map( ( member, index ) => (
                     <ContributionField key={ index } name={ member.name } amount={ member.contribution } />
                 ) ) }

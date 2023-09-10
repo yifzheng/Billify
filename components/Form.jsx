@@ -24,7 +24,7 @@ const Form = ( { type } ) => {
 
     // add another item to state
     const handleAddItem = () => {
-        setItems( [ ...items, { name: '', price: undefined, quantity: 1, members: [] } ] );
+        setItems( [ ...items, { name: '', amount: undefined, quantity: 1, members: [] } ] );
     };
 
     // remove item from state

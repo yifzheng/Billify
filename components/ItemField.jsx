@@ -60,16 +60,16 @@ const ItemField = ( { item, index, handleItemChange } ) => {
                     </label>
                     <label className="w-1/3">
                         <span className="font-satoshi font-medium text-sm text-gray-700">
-                            Price
+                            Amount
                         </span>
                         <input
                             type="number"
                             placeholder="$12"
-                            name="price"
+                            name="amount"
                             className="form_input"
                             step={ 0.01 }
-                            value={ item.price }
-                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, price: e.target.value } ) }
+                            value={ item.amount }
+                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, amount: e.target.value } ) }
                         />
                     </label>
                 </section>
