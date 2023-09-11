@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-import Logo from "../public/icons/bill.png"
+import Logo from "../public/images/logo.png"
 import Create from "../public/icons/compose.png"
 import Exit from "../public/icons/exit.png"
 import Google from "../public/icons/google.png"
@@ -39,12 +39,12 @@ const Nav = () => {
             <div className='flex gap-2 flex-center cursor-pointer' onClick={handleHome}>
                 <Image
                     src={ Logo }
-                    width={ 45 }
-                    height={ 45 }
-                    alt='billify_logo'
+                    width={ 150 }
+                    height={ 100 }
+                    alt='splittr_logo'
                     className='object-contain'
                 />
-                <span className='logo_text blue_gradient'>Billify</span>
+                {/* <span className='logo_text blue_gradient'>Splittr</span> */}
             </div>
 
             {/* Desktop Navigation (When min width is greater than 640px display flex else hidden) */ }
