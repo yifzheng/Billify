@@ -51,9 +51,39 @@ const Form = ( { type } ) => {
         }
         const contribution = calculateContributions( receipt, members )
         receipt.contribution = contribution;
-        setContribution( contribution )
-        setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+        console.log( receipt )
+        /* setContribution( contribution )
+        setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 ) */
     }
+
+    /* 
+        {
+            resturantName: 'Toto\'s',
+            items: [
+                {
+                name: '12321',
+                amount: '31',
+                quantity: '3',
+                members: [
+                    { name: 'yifeng' },
+                    { name: 'eric' },
+                    { name: 'annie' },
+                    { name: 'fion' }
+                ]
+                }
+            ],
+            tax: '22',
+            tip: '10',
+            total: '70',
+            creator: undefined,
+            contribution: [
+                { name: 'yifeng', contribution: '15.75' },
+                { name: 'eric', contribution: '15.75' },
+                { name: 'annie', contribution: '15.75' },
+                { name: 'fion', contribution: '15.75' }
+            ]
+        }
+    */
 
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16'>
@@ -66,7 +96,7 @@ const Form = ( { type } ) => {
                     <span className='font-satoshi font-semibold text-lg text-gray-700'>
                         Restaurant Name
                     </span>
-                    <input type="text" required className='form_input' placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
+                    <input type="text" required className='form_input' name="name" placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
                 </label>
                 { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } /> ) ) }
                 <div className="buttons flex max-w-full gap-1">

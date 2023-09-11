@@ -36,7 +36,7 @@ const RootLayout = ( { children } ) => {
                         {
                             !isVerified ?
                                 (
-                                    <section className='flex-center flex-col text-center sm:mt-[30%] mt-[50%] gap-10'>
+                                    <section className='flex-center flex-col text-center sm:mt-[30%] mt-[50%] gap-10 glassmorphism h-[30%]'>
                                         <h1 className='head_text blue_gradient sm:h-24 h-50 '>Verify Your Humanity</h1>
                                         <ReCAPTCHA
                                             sitekey={ '6LcZYxYoAAAAAAwiRjVeymHjbHxTj4LfjirQEDsJ' }

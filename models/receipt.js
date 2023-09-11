@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const ReceiptSchema = new Schema({
-	name: {
+	resturantName: {
 		type: String,
 		required: true,
 	},
@@ -38,7 +38,7 @@ const ReceiptSchema = new Schema({
 		type: Number,
 		required: true,
 	},
-	totalAmount: {
+	total: {
 		type: Number,
 		required: true,
 	},
