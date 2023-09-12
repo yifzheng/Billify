@@ -9,7 +9,7 @@ export const calculateContributions = (receipt, members) => {
 	// map through list of items on receipt and calculate the individual contribution
 	for (const item of receipt.items) {
 		const numOwners = item.members.length || 1; // Ensure at least 1 owner
-		const individualContribution = (item.price / numOwners).toFixed(2);
+		const individualContribution = (item.amount / numOwners).toFixed(2);
 		
 		// for each contributing member, update their contribution on the memberContributions object
 		for (const owner of item.members) {
@@ -33,7 +33,7 @@ export const calculateContributions = (receipt, members) => {
 
 	// Create an array of member objects with name and contribution
 	const memberArray = Object.keys(memberContributions).map((name) => ({
-		name,
+		member: name,
 		contribution: memberContributions[name],
 	}));
 

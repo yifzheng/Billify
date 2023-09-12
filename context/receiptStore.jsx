@@ -4,7 +4,7 @@ const useReceiptStore = create( ( set ) => ( {
     members: [ { name: '' } ],
     resturantName: "",
     items: [ {
-        name: '', price: undefined, quantity: 1, members: []
+        name: '', amount: undefined, quantity: 1, members: []
     } ],
     tax: undefined,
     tip: undefined,
@@ -21,7 +21,7 @@ const useReceiptStore = create( ( set ) => ( {
         members: [ { name: '' } ],
         resturantName: "",
         items: [ {
-            name: '', price: undefined, quantity: 1, members: []
+            name: '', amount: undefined, quantity: 1, members: []
         } ],
         tax: undefined,
         tip: undefined,

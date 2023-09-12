@@ -24,7 +24,7 @@ const Form = ( { type } ) => {
 
     // add another item to state
     const handleAddItem = () => {
-        setItems( [ ...items, { name: '', price: undefined, quantity: 1, members: [] } ] );
+        setItems( [ ...items, { name: '', amount: undefined, quantity: 1, members: [] } ] );
     };
 
     // remove item from state
@@ -39,21 +39,77 @@ const Form = ( { type } ) => {
         router.push( "/" )
     }
     // create the receipt and save to state if not logged in
-    const handleCreate = ( e ) => {
+    const handleCreate = async ( e ) => {
         e.preventDefault()
-        const receipt = {
-            resturantName,
-            items,
-            tax,
-            tip,
-            total,
-            creator: session?.user.id
+        // if there are members available, to prevent any manual url routing
+        if ( members.length > 0 ) {
+            const receipt = {
+                resturantName,
+                items,
+                tax,
+                tip,
+                total
+            }
+            const contribution = calculateContributions( receipt, members )
+            receipt.contribution = contribution;
+            console.log( receipt )
+            setContribution( contribution )
+
+            // if user is logged in post the receipt to database
+            if ( session?.user.id ) {
+                await postReceipt( receipt )
+            }
+            else {
+                // else, just navigate to contributions page
+                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+            }
         }
-        const contribution = calculateContributions( receipt, members )
-        receipt.contribution = contribution;
-        setContribution( contribution )
-        setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
     }
+
+    const postReceipt = async ( receipt ) => {
+        try {
+            console.log( 'POSTING' )
+            const response = await fetch( '/api/create-receipt/new', {
+                method: 'POST',
+                body: JSON.stringify( { ...receipt, userId: session?.user.id } )
+            } )
+            console.log( response )
+            if ( response.ok ) {
+                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+            }
+        } catch ( error ) {
+            console.log( error )
+        }
+    }
+
+    /* 
+        {
+            resturantName: 'Toto\'s',
+            items: [
+                {
+                name: '12321',
+                amount: '31',
+                quantity: '3',
+                members: [
+                    { name: 'yifeng' },
+                    { name: 'eric' },
+                    { name: 'annie' },
+                    { name: 'fion' }
+                ]
+                }
+            ],
+            tax: '22',
+            tip: '10',
+            total: '70',
+            creator: undefined,
+            contribution: [
+                { name: 'yifeng', contribution: '15.75' },
+                { name: 'eric', contribution: '15.75' },
+                { name: 'annie', contribution: '15.75' },
+                { name: 'fion', contribution: '15.75' }
+            ]
+        }
+    */
 
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16'>
@@ -66,7 +122,7 @@ const Form = ( { type } ) => {
                     <span className='font-satoshi font-semibold text-lg text-gray-700'>
                         Restaurant Name
                     </span>
-                    <input type="text" required className='form_input' placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
+                    <input type="text" required className='form_input' name="name" placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
                 </label>
                 { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } /> ) ) }
                 <div className="buttons flex max-w-full gap-1">
