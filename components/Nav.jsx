@@ -74,8 +74,9 @@ const Nav = () => {
                                 src={ session?.user.image }
                                 width={ 40 }
                                 height={ 40 }
-                                className='rounded-full border-solid border-2 border-amber-600'
+                                className='rounded-full border-solid border-2 border-amber-600 cursor-pointer'
                                 alt='profile'
+                                onClick={() => router.push(`/profile/${session?.user.id}`)}
                             />
                         </div>
                     )
@@ -121,6 +122,13 @@ const Nav = () => {
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
                                             Create Receipt
+                                        </Link>
+                                        <Link
+                                            href={ `/profile/${session?.user.id}` }
+                                            className='dropdown_link'
+                                            onClick={ () => setToggleDropDown( false ) }
+                                        >
+                                            My Receipts
                                         </Link>
                                         <button type="button" onClick={ () => {
                                             setToggleDropDown( false )
