@@ -158,6 +158,7 @@ const Form = ( { type } ) => {
                                 step={ 0.01 }
                                 onChange={ ( e ) => setTax( e.target.value ) }
                                 className='form_input'
+                                required
                             />
                         </label>
                         <label className="w-full">
@@ -170,6 +171,7 @@ const Form = ( { type } ) => {
                                 step={ 0.01 }
                                 value={ tip }
                                 onChange={ ( e ) => setTip( e.target.value ) }
+                                required
                             />
                         </label>
                         <label className="w-full">
@@ -182,6 +184,7 @@ const Form = ( { type } ) => {
                                 step={ 0.01 }
                                 value={ total }
                                 onChange={ ( e ) => setTotal( e.target.value ) }
+                                required
                             />
                         </label>
                     </div>
