@@ -107,7 +107,7 @@
 }
 
 .head_text {
-	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl;
+	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl pb-4;
 }
 
 .orange_gradient {
