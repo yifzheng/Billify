@@ -41,26 +41,29 @@ const Form = ( { type } ) => {
     // create the receipt and save to state if not logged in
     const handleCreate = async ( e ) => {
         e.preventDefault()
-        const receipt = {
-            resturantName,
-            items,
-            tax,
-            tip,
-            total
-        }
-        const contribution = calculateContributions( receipt, members )
-        receipt.contribution = contribution;
-        console.log( receipt )
-        setContribution( contribution )
-        // if user is logged in post the receipt to database
-        if ( session?.user.id ) {
-            await postReceipt( receipt )
-        }
-        else {
-            // else, just navigate to contributions page
-            setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
-        }
+        // if there are members available, to prevent any manual url routing
+        if ( members.length > 0 ) {
+            const receipt = {
+                resturantName,
+                items,
+                tax,
+                tip,
+                total
+            }
+            const contribution = calculateContributions( receipt, members )
+            receipt.contribution = contribution;
+            console.log( receipt )
+            setContribution( contribution )
 
+            // if user is logged in post the receipt to database
+            if ( session?.user.id ) {
+                await postReceipt( receipt )
+            }
+            else {
+                // else, just navigate to contributions page
+                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+            }
+        }
     }
 
     const postReceipt = async ( receipt ) => {
