@@ -6,14 +6,17 @@ import Form from '@components/Form'
 
 
 const CreateReceipt = () => {
-    const { data: session } = useSession()
+  /*  const { data: session } = useSession()
     const router = useRouter()
-
+ 
+    if ( !session ) {
+        router.push( "/" )
+        return false
+    } */
 
     return (
         <Form
             type={ 'Create' }
-            onSubmit={ () => { } }
         />
     )
 }

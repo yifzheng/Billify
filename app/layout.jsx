@@ -36,8 +36,10 @@ const RootLayout = ( { children } ) => {
                         {
                             !isVerified ?
                                 (
-                                    <section className='flex-center flex-col text-center sm:mt-[30%] mt-[50%] gap-10 glassmorphism h-[30%]'>
+                                    <section className='flex-center flex-col text-center sm:mt-[25%] mt-[10vh] gap-6 glassmorphism h-[30%]'>
                                         <h1 className='head_text blue_gradient sm:h-24 h-50 '>Verify Your Humanity</h1>
+                                        <span className="desc2">Please help us ensure the security of our website by verifying that you are a human and not a robot. This helps us protect against automated spam and unauthorized access.</span>
+                                        <span className='sm:w-1/2'>Click the "I'm not a robot" checkbox below to prove you are a human. You may be presented with additional challenges if our system detects unusual activity.</span>
                                         <ReCAPTCHA
                                             sitekey={ '6LcZYxYoAAAAAAwiRjVeymHjbHxTj4LfjirQEDsJ' }
                                             onChange={ handleVerification }
