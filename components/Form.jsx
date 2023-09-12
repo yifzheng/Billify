@@ -69,7 +69,7 @@ const Form = ( { type } ) => {
     const postReceipt = async ( receipt ) => {
         try {
             console.log( 'POSTING' )
-            const response = await fetch( '/api/create-receipt/new', {
+            const response = await fetch( '/api/receipt/new', {
                 method: 'POST',
                 body: JSON.stringify( { ...receipt, userId: session?.user.id } )
             } )

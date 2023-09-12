@@ -114,6 +114,10 @@
 	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
 
+.red_gradient {
+	@apply bg-gradient-to-r from-red-500 via-red-600 to-pink-800 bg-clip-text text-transparent;
+}
+
 .green_gradient {
 	@apply bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent;
 }
@@ -193,4 +197,8 @@
 option:hover {
 	background-color: #6eaef2;
 	color: #fff;
+}
+
+.receipt_card {
+	@apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[400px] w-full h-fit;
 }
