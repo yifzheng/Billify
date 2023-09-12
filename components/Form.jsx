@@ -46,8 +46,7 @@ const Form = ( { type } ) => {
             items,
             tax,
             tip,
-            total,
-            creator: session?.user.id
+            total
         }
         const contribution = calculateContributions( receipt, members )
         receipt.contribution = contribution;
@@ -66,11 +65,12 @@ const Form = ( { type } ) => {
 
     const postReceipt = async ( receipt ) => {
         try {
+            console.log( 'POSTING' )
             const response = await fetch( '/api/create-receipt/new', {
                 method: 'POST',
-                body: JSON.stringify( receipt )
+                body: JSON.stringify( { ...receipt, userId: session?.user.id } )
             } )
-
+            console.log( response )
             if ( response.ok ) {
                 setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
             }

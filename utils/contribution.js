@@ -33,7 +33,7 @@ export const calculateContributions = (receipt, members) => {
 
 	// Create an array of member objects with name and contribution
 	const memberArray = Object.keys(memberContributions).map((name) => ({
-		name,
+		member: name,
 		contribution: memberContributions[name],
 	}));
 

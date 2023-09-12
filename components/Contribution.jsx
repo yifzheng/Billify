@@ -19,7 +19,7 @@ const Contribution = () => {
                     <span className='sm:text-2xl text-base'><b>Amount ($)</b></span>
                 </header>
                 { contribution.map( ( member, index ) => (
-                    <ContributionField key={ index } name={ member.name } amount={ member.contribution } />
+                    <ContributionField key={ index } name={ member.member } amount={ member.contribution } />
                 ) ) }
             </div>
             <div className="flex-start my-10 w-1/2">

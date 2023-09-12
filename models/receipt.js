@@ -53,7 +53,7 @@ const ReceiptSchema = new Schema({
 				required: true,
 			},
 			contribution: {
-				tpye: Number,
+				type: Number,
 				required: true,
 			},
 		},
