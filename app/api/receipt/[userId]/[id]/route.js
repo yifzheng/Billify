@@ -3,14 +3,13 @@ import Receipt from "@models/receipt";
 
 // GET
 export const GET = async (req, { params }) => {
-	const url = new URL(req.url, "http://localhost"); // Replace "http://localhost" with your actual base URL
-	const userId = url.searchParams.get("userId");
 	try {
 		await connectToDB(); // connect to database
 		const retrievedReceipt = await Receipt.findById(params.id).populate(
 			"creator"
 		);
-		if (userId !== params.id) {
+		console.log(retrievedReceipt.creator._id.toString() !== params.userId);
+		if (retrievedReceipt.creator._id.toString() !== params.userId) {
 			return new Response("Unauthorized to delete this receipt", {
 				status: 401,
 			});

@@ -12,7 +12,7 @@ const Form = ( { type, handleItemChange, handleAddItem, handleRemoveItem, handle
     const router = useRouter()
 
     return (
-        <section className='w-full max-w-full flex-start flex-col mb-16'>
+        <section className='w-full max-w-full flex-start flex-col mb-16 sm:mt-4'>
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 2: { type } Receipt</span></h1>
             <form
                 className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'

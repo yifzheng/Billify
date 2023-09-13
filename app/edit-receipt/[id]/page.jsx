@@ -1,14 +1,30 @@
 'use client'
 
+import useEditReceiptStore from "@context/editReceiptStore"
 import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
+import { useEffect } from "react"
+
 
 const EditReceipt = () => {
+  const { editReceipt, setEditReceipt } = useEditReceiptStore()
   const router = useRouter()
   const { data: session } = useSession()
+  const params = useParams()
+  const { id } = params
 
+  useEffect( () => {
+    const fetchReceipt = async () => {
+      const response = await fetch( `/api/receipt/${session?.user.id}/${id}` )
+      const data = await response.json()
+      console.log( data )
+      setEditReceipt( data )
+    }
+    if ( id ) fetchReceipt()
+  }, [ id ] )
+  console.log( editReceipt )
   return (
-    <section className='w-full flex-start flex-col'>
+    <section className='w-full sm:mt-16 flex-start flex-col'>
       <h1 className='head_text blue_gradient'>Edit Receipt</h1>
       <span className="desc3 text-gray-700">Follow the steps below to edit your receipt</span>
       <br />
