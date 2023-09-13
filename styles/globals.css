@@ -107,11 +107,15 @@
 }
 
 .head_text {
-	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl;
+	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl pb-4;
 }
 
 .orange_gradient {
 	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.red_gradient {
+	@apply bg-gradient-to-r from-red-500 via-red-600 to-pink-800 bg-clip-text text-transparent;
 }
 
 .green_gradient {
@@ -193,4 +197,8 @@
 option:hover {
 	background-color: #6eaef2;
 	color: #fff;
+}
+
+.receipt_card {
+	@apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter min-w-[300px] sm:w-fit w-full h-fit;
 }

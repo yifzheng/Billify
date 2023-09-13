@@ -6,8 +6,12 @@ import ContributionField from "./ContributionField"
 
 const Contribution = () => {
     const router = useRouter()
-    const { contribution } = useReceiptStore()
+    const { contribution, reset } = useReceiptStore()
 
+    const handleFinish = () => {
+        reset()
+        router.push( "/" )
+    }
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16'>
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 3: Contributions</span></h1>
@@ -23,7 +27,7 @@ const Contribution = () => {
                 ) ) }
             </div>
             <div className="flex-start my-10 w-1/2">
-                <div className="black_btn cursor-pointer" onClick={ () => router.push( "/" ) }>Finish</div>
+                <div className="black_btn cursor-pointer" onClick={ handleFinish }>Finish</div>
             </div>
         </section>
     )
