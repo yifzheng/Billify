@@ -33,7 +33,7 @@ const ProfilePage = () => {
         if ( hadConfirmed ) {
             try {
                 // delete receipt
-                await fetch( `/api/receipt/${receipt._id}`, {
+                await fetch( `/api/receipt/${session?.user.id}/${receipt._id}`, {
                     method: 'DELETE'
                 } )
                 // filter old receipt from state
