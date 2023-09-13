@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Profile from "@components/Profile"
+import axios from 'axios'
 
 const ProfilePage = () => {
     const [ receipts, setReceipts ] = useState( [] )
@@ -19,8 +20,9 @@ const ProfilePage = () => {
 
     useEffect( () => {
         const fetchReceipts = async () => {
-            const response = await fetch( `/api/user/${session?.user.id}/receipts` )
-            const data = await response.json()
+            const response = await axios.get( `/api/user/${session?.user.id}/receipts`, { params: { userId: session?.user.id } } )
+            console.log(response)
+            const data = await response.data
             // sort the data
             const sortedData = data.sort( ( a, b ) => new Date( b.createdAt ) - new Date( a.createdAt ) )
             setReceipts( sortedData )
@@ -45,10 +47,15 @@ const ProfilePage = () => {
         }
     }
 
+    const handleEditReceipt = (receiptId) => {
+        router.push(`/edit-receipt/${receiptId}`)
+    }
+
     return (
         <Profile
             receipts={ receipts }
             handleDelete={ handleDelete }
+            handleEdit={handleEditReceipt}
         />
     )
 }

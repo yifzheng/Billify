@@ -110,6 +110,10 @@
 	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl pb-4;
 }
 
+.title_text {
+	@apply mt-5 text-4xl font-extrabold leading-[1.15] text-black sm:text-5xl pb-4;
+}
+
 .orange_gradient {
 	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
@@ -132,6 +136,10 @@
 
 .desc2 {
 	@apply mt-5 text-lg text-gray-700 sm:text-2xl max-w-4xl;
+}
+
+.desc3 {
+	@apply mt-1 text-lg text-gray-700 sm:text-2xl max-w-4xl;
 }
 
 .flex-center {

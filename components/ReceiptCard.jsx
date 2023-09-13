@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Down from "../public/icons/down.png"
 import Up from "../public/icons/up.png"
 
-const ReceiptCard = ( { receipt, handleDelete } ) => {
+const ReceiptCard = ( { receipt, handleDelete, handleEdit } ) => {
   const [ expanded, setExpanded ] = useState( false )
   const date = new Date( receipt.createdAt )
   const year = date.getFullYear()
@@ -81,8 +81,8 @@ const ReceiptCard = ( { receipt, handleDelete } ) => {
         ) }
       <div className="flex justify-between items-center mt-1">
         <div className="flex gap-2">
-          <span className='font-inter green_gradient cursor-pointer text-sm'>Edit</span>
-          <span className='font-inter red_gradient cursor-pointer text-sm' onClick={ handleDelete }>Delete</span>
+          <span className='font-inter green_gradient cursor-pointer text-sm font-semibold' onClick={ handleEdit }>Edit</span>
+          <span className='font-inter red_gradient cursor-pointer text-sm font-semibold' onClick={ handleDelete }>Delete</span>
         </div>
         <button onClick={ toggleExpanded }>
           <Image
