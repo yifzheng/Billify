@@ -1,122 +1,22 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import ItemField from './ItemField'
 import Image from 'next/image'
 import Add from "../public/icons/add.png"
 import Remove from "../public/icons/remove.png"
 import useReceiptStore from '@context/receiptStore'
-import { calculateContributions } from '@utils/contribution'
 
-const Form = ( { type } ) => {
-    const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, setContribution, reset } = useReceiptStore()
+const Form = ( { type, handleItemChange, handleAddItem, handleRemoveItem, handleSubmit, handleCancel } ) => {
+    const { resturantName, setResturantName, items, tax, setTax, tip, setTip, total, setTotal } = useReceiptStore()
     const router = useRouter()
-    const { data: session } = useSession()
-
-    // handle item change
-    const handleItemChange = ( index, item ) => {
-        const updatedItems = [ ...items ]
-        updatedItems[ index ] = { ...item }
-        setItems( updatedItems )
-    }
-
-    // add another item to state
-    const handleAddItem = () => {
-        setItems( [ ...items, { name: '', amount: undefined, quantity: 1, members: [] } ] );
-    };
-
-    // remove item from state
-    const handleRemoveItem = ( item ) => {
-        const updatedItems = items.filter( ( i ) => i !== item );
-        setItems( updatedItems );
-    };
-
-    // reset creation process
-    const handleCancel = () => {
-        reset()
-        router.push( "/" )
-    }
-    // create the receipt and save to state if not logged in
-    const handleCreate = async ( e ) => {
-        e.preventDefault()
-        // if there are members available, to prevent any manual url routing
-        if ( members.length > 0 ) {
-            const receipt = {
-                resturantName,
-                items,
-                tax,
-                tip,
-                total
-            }
-            const contribution = calculateContributions( receipt, members )
-            receipt.contribution = contribution;
-            console.log( receipt )
-            setContribution( contribution )
-
-            // if user is logged in post the receipt to database
-            if ( session?.user.id ) {
-                await postReceipt( receipt )
-            }
-            else {
-                // else, just navigate to contributions page
-                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
-            }
-        }
-    }
-
-    const postReceipt = async ( receipt ) => {
-        try {
-            console.log( 'POSTING' )
-            const response = await fetch( '/api/receipt/new', {
-                method: 'POST',
-                body: JSON.stringify( { ...receipt, userId: session?.user.id } )
-            } )
-            console.log( response )
-            if ( response.ok ) {
-                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
-            }
-        } catch ( error ) {
-            console.log( error )
-        }
-    }
-
-    /* 
-        {
-            resturantName: 'Toto\'s',
-            items: [
-                {
-                name: '12321',
-                amount: '31',
-                quantity: '3',
-                members: [
-                    { name: 'yifeng' },
-                    { name: 'eric' },
-                    { name: 'annie' },
-                    { name: 'fion' }
-                ]
-                }
-            ],
-            tax: '22',
-            tip: '10',
-            total: '70',
-            creator: undefined,
-            contribution: [
-                { name: 'yifeng', contribution: '15.75' },
-                { name: 'eric', contribution: '15.75' },
-                { name: 'annie', contribution: '15.75' },
-                { name: 'fion', contribution: '15.75' }
-            ]
-        }
-    */
 
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16'>
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 2: { type } Receipt</span></h1>
             <form
                 className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
-                onSubmit={ e => handleCreate( e ) }
+                onSubmit={ handleSubmit }
             >
                 <label htmlFor="">
                     <span className='font-satoshi font-semibold text-lg text-gray-700'>
@@ -191,14 +91,12 @@ const Form = ( { type } ) => {
                 </div>
                 <div className="flex justify-between">
                     <button type='button' onClick={ () => router.push( "/create-receipt/members" ) } className={ `outline_btn flex gap-1` }>
-                        <span className='font-medium'>Back</span>
+                        <span className='font-medium cursor-pointer'>Back</span>
                     </button>
                     <div className="buttons flex-end w-1/2 max-w-1/2 gap-4 float-right">
-                        <span className='font-medium' onClick={ handleCancel }>Cancel</span>
-
-
+                        <span className='font-medium cursor-pointer' onClick={ handleCancel }>Cancel</span>
                         <button type='submit' className={ `green_btn flex gap-1` }>
-                            <span className='font-medium'>Create</span>
+                            <span className='font-medium cursor-pointer'>{ type }</span>
                         </button>
                     </div>
                 </div>

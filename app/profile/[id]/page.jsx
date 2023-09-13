@@ -1,15 +1,16 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Profile from "@components/Profile"
 
 const ProfilePage = () => {
     const [ receipts, setReceipts ] = useState( [] )
     const { data: session } = useSession()
-    const router = useParams()
-    const { id } = router
+    const params = useParams()
+    const { id } = params
+    const router = useRouter()
 
     // check if the current logged in user is viewing their own profile page
     if ( session?.user.id !== id ) {
