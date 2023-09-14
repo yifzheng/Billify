@@ -211,7 +211,6 @@ option:hover {
 	@apply space-y-6 py-2 sm:columns-2 sm:gap-4 xl:columns-3 h-full;
 }
 
-
 .receipt_card {
 	@apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter min-w-[300px] sm:w-full h-fit;
 }

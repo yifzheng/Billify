@@ -5,10 +5,26 @@ import ItemField from './ItemField'
 import Image from 'next/image'
 import Add from "../public/icons/add.png"
 import Remove from "../public/icons/remove.png"
-import useReceiptStore from '@context/receiptStore'
 
-const Form = ( { type, handleItemChange, handleAddItem, handleRemoveItem, handleSubmit, handleCancel } ) => {
-    const { resturantName, setResturantName, items, tax, setTax, tip, setTip, total, setTotal } = useReceiptStore()
+const Form = (
+    { 
+        resturantName,
+        setResturantName,
+        items,
+        tax,
+        setTax,
+        tip,
+        setTip,
+        total,
+        setTotal,
+        type,
+        handleItemChange,
+        handleAddItem,
+        handleRemoveItem,
+        handleSubmit,
+        handleCancel
+    } ) => {
+    
     const router = useRouter()
 
     return (

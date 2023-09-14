@@ -7,7 +7,7 @@ import { useEffect } from "react"
 
 
 const EditReceipt = () => {
-  const { editReceipt, setEditReceipt } = useEditReceiptStore()
+  const { setMembers, setEditReceipt } = useEditReceiptStore()
   const router = useRouter()
   const { data: session } = useSession()
   const params = useParams()
@@ -19,10 +19,13 @@ const EditReceipt = () => {
       const data = await response.json()
       console.log( data )
       setEditReceipt( data )
+      // map through contributions and update members
+      const membersList = data.contribution.map( ( contribution ) => ( { name: contribution.member } ) )
+      setMembers( membersList )
     }
     if ( id ) fetchReceipt()
   }, [ id ] )
-  console.log( editReceipt )
+
   return (
     <section className='w-full sm:mt-16 flex-start flex-col'>
       <h1 className='head_text blue_gradient'>Edit Receipt</h1>
@@ -36,7 +39,7 @@ const EditReceipt = () => {
       <div>
         <div className="flex gap-4 items-center mt-16">
           <span className="red_gradient text-lg font-medium cursor-pointer" onClick={ () => router.push( `/profile/${session?.user.id}` ) }>Cancel</span>
-          <button className="black_btn font-medium">Continue</button>
+          <button className="black_btn font-medium" onClick={ () => router.push( `/edit-receipt/${id}/members` ) }>Continue</button>
         </div>
       </div>
     </section>

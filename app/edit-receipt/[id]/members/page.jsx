@@ -1,11 +1,14 @@
 'use client'
 
-import Members from "@components/Members";
-import { useRouter } from "next/navigation";
-import useReceiptStore from "@context/receiptStore";
+import Members from '@components/Members'
+import useEditReceiptStore from '@context/editReceiptStore'
+import { useParams, useRouter } from 'next/navigation'
 
-const page = () => {
-    const { members, setMembers, reset } = useReceiptStore() // state storing all the members entered by the user
+
+const UpdateMembers = () => {
+    const { members, setMembers, reset } = useEditReceiptStore()
+    const params = useParams()
+    const { id } = params
     const router = useRouter()
 
     // handle member data changing
@@ -51,7 +54,7 @@ const page = () => {
     const handleContinue = () => {
         const notEmpty = members.every( ( member ) => member.name.trim().length > 1 )
         if ( notEmpty ) {
-            router.push( "/create-receipt/receipt" )
+            router.push( `/edit-receipt/${id}/receipt` )
         }
     }
 
@@ -62,6 +65,7 @@ const page = () => {
 
     return (
         <Members
+            type={ "Update" }
             members={ members }
             handleMemberChange={ handleMemberChange }
             handleRemoveMember={ handleRemoveMember }
@@ -69,7 +73,7 @@ const page = () => {
             handleContinue={ handleContinue }
             handleCancel={ handleCancel }
         />
-    );
-};
+    )
+}
 
-export default page;
+export default UpdateMembers

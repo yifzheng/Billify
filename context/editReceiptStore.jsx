@@ -9,6 +9,8 @@ const useEditReceiptStore = create( ( set ) => ( {
         total: undefined,
         contribution: []
     },
+    members: [ { name: '' } ],
+    setMembers: ( members ) => set( { members } ),
     // Setter methods for the keys in editReceipt
     setRestaurantName: ( restaurantName ) =>
         set( ( state ) => ( { editReceipt: { ...state.editReceipt, restaurantName } } ) ),
@@ -31,6 +33,14 @@ const useEditReceiptStore = create( ( set ) => ( {
         set( ( state ) => ( { editReceipt: { ...state.editReceipt, contribution } } ) ),
     setEditReceipt: ( newEditReceipt ) =>
         set( ( state ) => ( { editReceipt: { ...state.editReceipt, ...newEditReceipt } } ) ),
+    reset: () => set( {
+        resturantName: '',
+        items: [],
+        tax: undefined,
+        tip: undefined,
+        total: undefined,
+        contribution: []
+    } )
 } ) )
 
 export default useEditReceiptStore

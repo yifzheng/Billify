@@ -7,7 +7,7 @@ import useReceiptStore from '@context/receiptStore'
 import { calculateContributions } from '@utils/contribution'
 
 const CreateReceipt = () => {
-    const { members, resturantName, items, setItems, tax, tip, total, setContribution, reset } = useReceiptStore()
+    const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, setContribution, reset } = useReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
 
@@ -58,7 +58,7 @@ const CreateReceipt = () => {
             }
             else {
                 // else, just navigate to contributions page
-                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+                router.push( "/create-receipt/contributions" )
             }
         }
     }
@@ -81,6 +81,15 @@ const CreateReceipt = () => {
 
     return (
         <Form
+            resturantName={ resturantName }
+            setResturantName={ setResturantName }
+            items={ items }
+            tax={ tax }
+            setTax={ setTax }
+            tip={tip}
+            setTip={setTip}
+            total={total}
+            setTotal={setTotal}
             type={ 'Create' }
             handleItemChange={ handleItemChange }
             handleAddItem={ handleAddItem }
