@@ -28,7 +28,7 @@ const Form = (
     } ) => {
 
     const router = useRouter()
-    console.log( items )
+
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16 sm:mt-4'>
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 2: { type } Receipt</span></h1>

@@ -17,7 +17,7 @@ const EditReceipt = () => {
     const fetchReceipt = async () => {
       const response = await fetch( `/api/receipt/${session?.user.id}/${id}` )
       const data = await response.json()
-      console.log( data )
+
       setEditReceipt( data )
       // map through contributions and update members
       const membersList = data.contribution.map( ( contribution ) => ( { name: contribution.member } ) )

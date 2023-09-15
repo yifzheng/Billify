@@ -6,7 +6,7 @@ import useEditReceiptStore from '@context/editReceiptStore'
 
 const ViewContributions = () => {
   const { editReceipt, reset } = useEditReceiptStore()
-  console.log( editReceipt )
+
   return (
     <Contribution
       contribution={ editReceipt?.contribution }

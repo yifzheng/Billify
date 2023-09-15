@@ -4,18 +4,15 @@ import { useState } from "react";
 import MemberBubble from "./MemberBubble";
 
 const ItemField = ( { item, index, handleItemChange, members } ) => {
-    console.log( "Item Index", index )
+
     //const { members } = useReceiptStore() // retrieve members created in previous step
     const [ owners, setOwners ] = useState( item.members || [] )
-    console.log( owners )
-    console.log( members )
+   
     // remove names from owner state
     const handleRemoveBubble = ( idx ) => {
-        console.log( "Removing bubble at index:", index ); // Add this line
         const updatedOwners = [ ...owners ]
         updatedOwners.splice( idx, 1 )
         setOwners( updatedOwners )
-        console.log( updatedOwners )
         handleItemChange( index - 1, { ...item, members: updatedOwners } )
     }
 
@@ -24,7 +21,6 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
         const containsValue = owners.some( ( owner ) => owner.name.includes( e.target.value ) )
         if ( !containsValue ) {
             setOwners( [ ...owners, { name: e.target.value } ] )
-            console.log( [ ...owners, { name: e.target.value } ] )
             handleItemChange( index - 1, { ...item, members: [ ...owners, { name: e.target.value } ] } )
         }
     }

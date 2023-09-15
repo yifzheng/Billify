@@ -8,7 +8,7 @@ export const GET = async (req, { params }) => {
 		const retrievedReceipt = await Receipt.findById(params.id).populate(
 			"creator"
 		);
-		console.log(retrievedReceipt.creator._id.toString() !== params.userId);
+
 		if (retrievedReceipt.creator._id.toString() !== params.userId) {
 			return new Response("Unauthorized to delete this receipt", {
 				status: 401,

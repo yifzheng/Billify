@@ -21,7 +21,7 @@ const ProfilePage = () => {
     useEffect( () => {
         const fetchReceipts = async () => {
             const response = await axios.get( `/api/user/${session?.user.id}/receipts`, { params: { userId: session?.user.id } } )
-            console.log(response)
+
             const data = await response.data
             // sort the data
             const sortedData = data.sort( ( a, b ) => new Date( b.createdAt ) - new Date( a.createdAt ) )

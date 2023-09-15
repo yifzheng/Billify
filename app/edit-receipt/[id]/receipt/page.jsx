@@ -16,11 +16,11 @@ const UpdateReceipt = () => {
 
     // handle item change
     const handleItemChange = ( index, item ) => {
-        console.log("Removing bubble at index:", index);
+
         const updatedItems = [ ...editReceipt.items ]
-        console.log(updatedItems)
+
         updatedItems[ index ] = { ...item }
-        console.log(updatedItems)
+
         setItems( updatedItems )
     }
 
@@ -51,12 +51,11 @@ const UpdateReceipt = () => {
         if ( !id ) return alert( "Receipt ID not available" )
         // if there are members available, to prevent any manual url routing
         if ( members.length > 0 && id ) {
-            console.log(members)
             const contribution = calculateContributions( editReceipt, members )
-            console.log(contribution)
+
             editReceipt.contribution = contribution
             // setContribution( contribution )
-            console.log( editReceipt )
+
             // router.push( `/edit-receipt/${id}/contributions` )
             // if user is logged in post the receipt to database
             if ( session?.user.id ) {
@@ -67,13 +66,12 @@ const UpdateReceipt = () => {
 
     const updateReceipt = async ( receipt ) => {
         try {
-            console.log( 'UPDATING' )
             const response = await fetch( `/api/receipt/${session?.user.id}/${receipt._id}`, {
                 method: 'PATCH',
                 body: JSON.stringify( { ...editReceipt, userId: session?.user.id } )
             } )
             if ( response.ok ) {
-                console.log("UPDATED")
+
                 setTimeout( () => router.push( `/edit-receipt/${id}/contributions` ), 1500 )
             }
         } catch ( error ) {

@@ -49,7 +49,7 @@ const CreateReceipt = () => {
             }
             const contribution = calculateContributions( receipt, members )
             receipt.contribution = contribution;
-            console.log( receipt )
+
             setContribution( contribution )
 
             // if user is logged in post the receipt to database
@@ -65,12 +65,12 @@ const CreateReceipt = () => {
 
     const postReceipt = async ( receipt ) => {
         try {
-            console.log( 'POSTING' )
+
             const response = await fetch( '/api/receipt/new', {
                 method: 'POST',
                 body: JSON.stringify( { ...receipt, userId: session?.user.id } )
             } )
-            console.log( response )
+
             if ( response.ok ) {
                 setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
             }
