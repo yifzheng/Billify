@@ -4,9 +4,9 @@ import useReceiptStore from "@context/receiptStore"
 import { useRouter } from "next/navigation"
 import ContributionField from "./ContributionField"
 
-const Contribution = () => {
+const Contribution = ({ contribution, reset }) => {
     const router = useRouter()
-    const { contribution, reset } = useReceiptStore()
+
 
     const handleFinish = () => {
         reset()
