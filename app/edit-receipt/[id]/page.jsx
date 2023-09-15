@@ -32,7 +32,7 @@ const EditReceipt = () => {
       <span className="desc3 text-gray-700">Follow the steps below to edit your receipt</span>
       <br />
       <br />
-      <h2 className="title_text blue_gradient">Step 1: Update Members</h2>
+      <h2 className="title_text blue_gradient">Step 1: Update Participants</h2>
       <h2 className="title_text blue_gradient">Step 2: Update Receipt</h2>
       <h2 className="title_text blue_gradient">Step 3: Save Receipt </h2>
 

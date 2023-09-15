@@ -7,7 +7,8 @@ import Add from "../public/icons/add.png"
 import Remove from "../public/icons/remove.png"
 
 const Form = (
-    { 
+    {
+        members,
         resturantName,
         setResturantName,
         items,
@@ -24,7 +25,7 @@ const Form = (
         handleSubmit,
         handleCancel
     } ) => {
-    
+
     const router = useRouter()
 
     return (
@@ -40,7 +41,7 @@ const Form = (
                     </span>
                     <input type="text" required className='form_input' name="name" placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
                 </label>
-                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } /> ) ) }
+                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } members={ members } /> ) ) }
                 <div className="buttons flex max-w-full gap-1">
                     <button type='button' onClick={ handleAddItem } className='green_btn flex gap-1 w-1/2'>
                         <Image

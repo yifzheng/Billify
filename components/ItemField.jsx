@@ -1,13 +1,12 @@
 'use client'
 
-import useReceiptStore from "@context/receiptStore";
 import { useState } from "react";
 import MemberBubble from "./MemberBubble";
 
-const ItemField = ( { item, index, handleItemChange } ) => {
-    const { members } = useReceiptStore() // retrieve members created in previous step
+const ItemField = ( { item, index, handleItemChange, members } ) => {
+    //const { members } = useReceiptStore() // retrieve members created in previous step
     const [ owners, setOwners ] = useState( item.members || [] )
-
+    console.log(members)
     // remove names from owner state
     const handleRemoveBubble = ( index ) => {
         const updatedOwners = [ ...owners ]

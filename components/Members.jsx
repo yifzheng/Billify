@@ -6,7 +6,7 @@ const Members = ( { members, type, handleMemberChange, handleRemoveMember, handl
     console.log(members)
     return (
         <section className="flex-start flex-col gap-4 w-full max-w-full sm:mt-4">
-            <h1 className="head_text orange_gradient">Step 1: { type } Members</h1>
+            <h1 className="head_text orange_gradient">Step 1: { type } Participants</h1>
             <span className="desc2 mb-10">
                 Who participated in the payment for the receipt? This individual placed an order during the outing.
             </span>

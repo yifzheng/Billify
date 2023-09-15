@@ -21,7 +21,7 @@ const ReceiptCard = ( { receipt, handleDelete, handleEdit } ) => {
       <span className='flex-end mb-0 text-base text-gray-700'>{ month }/{ day }/{ year }</span>
       <h2 className='sm:text-2xl text-xl font-semibold font-inter text-gray-800'>{ receipt.resturantName }</h2>
       <div className="flex justify-between">
-        <p className='text-gray-700 text-lg font-inter'><b>Total:</b> ${ receipt.total.toFixed( 2 ) }</p>
+        <p className='text-gray-700 text-base font-inter'><b>Total:</b> ${ receipt.total.toFixed( 2 ) }</p>
       </div>
 
       { expanded &&
