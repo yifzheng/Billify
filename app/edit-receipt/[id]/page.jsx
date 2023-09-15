@@ -34,8 +34,7 @@ const EditReceipt = () => {
       <br />
       <h2 className="title_text blue_gradient">Step 1: Update Participants</h2>
       <h2 className="title_text blue_gradient">Step 2: Update Receipt</h2>
-      <h2 className="title_text blue_gradient">Step 3: Save Receipt </h2>
-
+      <br />
       <div>
         <div className="flex gap-4 items-center mt-16">
           <span className="red_gradient text-lg font-medium cursor-pointer" onClick={ () => router.push( `/profile/${session?.user.id}` ) }>Cancel</span>

@@ -1,7 +1,7 @@
 import X from "../public/icons/x.png"
 import Image from "next/image";
 
-const MemberBubble = ( { owner, index, onChange } ) => {
+const MemberBubble = ( { owner, index, handleRemoveBubble } ) => {
 
     return (
         <section className="flex-start gap-2">
@@ -13,7 +13,7 @@ const MemberBubble = ( { owner, index, onChange } ) => {
                     height={ 15 }
                     alt="remove"
                     className="cursor-pointer"
-                    onClick={ () => onChange( index ) }
+                    onClick={ () => handleRemoveBubble( index ) }
                 />
             </div>
         </section>

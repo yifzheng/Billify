@@ -23,11 +23,12 @@ const Form = (
         handleAddItem,
         handleRemoveItem,
         handleSubmit,
-        handleCancel
+        handleCancel,
+        handleBack
     } ) => {
 
     const router = useRouter()
-
+    console.log( items )
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16 sm:mt-4'>
             <h1 className='head_text text-left'><span className='orange_gradient'>Step 2: { type } Receipt</span></h1>
@@ -107,11 +108,11 @@ const Form = (
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <button type='button' onClick={ () => router.push( "/create-receipt/members" ) } className={ `outline_btn flex gap-1` }>
+                    <button type='button' onClick={ handleBack } className={ `outline_btn flex gap-1` }>
                         <span className='font-medium cursor-pointer'>Back</span>
                     </button>
                     <div className="buttons flex-end w-1/2 max-w-1/2 gap-4 float-right">
-                        <span className='font-medium cursor-pointer' onClick={ handleCancel }>Cancel</span>
+                        <span className='font-medium cursor-pointer red_gradient' onClick={ handleCancel }>Cancel</span>
                         <button type='submit' className={ `green_btn flex gap-1` }>
                             <span className='font-medium cursor-pointer'>{ type }</span>
                         </button>

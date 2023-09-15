@@ -55,7 +55,7 @@ const page = () => {
         }
     }
 
-    const handleCancel = () => {
+    const handleBack = () => {
         reset()
         router.push( "/" )
     }
@@ -67,7 +67,7 @@ const page = () => {
             handleRemoveMember={ handleRemoveMember }
             handleEnterKey={ handleEnterKey }
             handleContinue={ handleContinue }
-            handleCancel={ handleCancel }
+            handleBack={ handleBack }
         />
     );
 };

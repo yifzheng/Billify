@@ -1,3 +1,5 @@
+'use client'
+
 import Contribution from "@components/Contribution"
 import useReceiptStore from "@context/receiptStore"
 

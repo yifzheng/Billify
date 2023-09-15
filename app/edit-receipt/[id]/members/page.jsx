@@ -58,9 +58,9 @@ const UpdateMembers = () => {
         }
     }
 
-    const handleCancel = () => {
+    const handleBack = () => {
         reset()
-        router.push( "/" )
+        router.push( `/edit-receipt/${id}` )
     }
 
     return (
@@ -71,7 +71,7 @@ const UpdateMembers = () => {
             handleRemoveMember={ handleRemoveMember }
             handleEnterKey={ handleEnterKey }
             handleContinue={ handleContinue }
-            handleCancel={ handleCancel }
+            handleBack={ handleBack }
         />
     )
 }

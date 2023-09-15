@@ -27,15 +27,8 @@ export const PATCH = async (req, { params }) => {
 		await req.json();
 	try {
 		await connectToDB(); // connect to database
-		const existingReceipt = await Receipt.findById(params.id).populate(
-			"creator"
-		);
-		// if not found return not found error
-		if (!existingReceipt) {
-			return new Response("Receipt not found", { status: 404 });
-		}
 		// Check if the userId from the route path matches the creator's ID
-		if (existingReceipt.creator.toString() !== userId) {
+		if (params.userId !== userId) {
 			return new Response("Unauthorized to delete this receipt", {
 				status: 401,
 			});
@@ -52,7 +45,6 @@ export const PATCH = async (req, { params }) => {
 					tip, // Update the tip
 					total, // Update the total
 					contribution, // Update the contribution
-					userId, // Update the userId
 				},
 			}
 		);

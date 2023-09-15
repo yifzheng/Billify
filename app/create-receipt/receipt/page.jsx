@@ -81,6 +81,7 @@ const CreateReceipt = () => {
 
     return (
         <Form
+            members={ members }
             resturantName={ resturantName }
             setResturantName={ setResturantName }
             items={ items }
@@ -96,6 +97,7 @@ const CreateReceipt = () => {
             handleRemoveItem={ handleRemoveItem }
             handleSubmit={ handleCreate }
             handleCancel={ handleCancel }
+            handleBack={ () => router.push( "/create-receipt/members" ) }
         />
     )
 }

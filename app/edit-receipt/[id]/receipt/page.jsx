@@ -1,20 +1,26 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Form from '@components/Form'
 import useEditReceiptStore from '@context/editReceiptStore'
+import { calculateContributions } from '@utils/contribution'
 
 
 const UpdateReceipt = () => {
-    const { editReceipt, members, setResturantName, setTax, setTip, setTotal, setContribution, reset } = useEditReceiptStore()
+    const { editReceipt, members, setResturantName, setItems, setTax, setTip, setTotal, setContribution, reset } = useEditReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
+    const params = useParams()
+    const { id } = params
 
     // handle item change
     const handleItemChange = ( index, item ) => {
+        console.log("Removing bubble at index:", index);
         const updatedItems = [ ...editReceipt.items ]
+        console.log(updatedItems)
         updatedItems[ index ] = { ...item }
+        console.log(updatedItems)
         setItems( updatedItems )
     }
 
@@ -29,6 +35,10 @@ const UpdateReceipt = () => {
         setItems( updatedItems );
     };
 
+    const handleBack = () => {
+        router.push( `/edit-receipt/${id}/members` )
+    }
+
     // reset creation process
     const handleCancel = () => {
         reset()
@@ -38,11 +48,16 @@ const UpdateReceipt = () => {
     // create the receipt and save to state if not logged in
     const handleUpdate = async ( e ) => {
         e.preventDefault()
+        if ( !id ) return alert( "Receipt ID not available" )
         // if there are members available, to prevent any manual url routing
-        if ( members.length > 0 ) {
-            const contribution = calculateContributions( receipt, members )
-            setContribution( contribution )
-
+        if ( members.length > 0 && id ) {
+            console.log(members)
+            const contribution = calculateContributions( editReceipt, members )
+            console.log(contribution)
+            editReceipt.contribution = contribution
+            // setContribution( contribution )
+            console.log( editReceipt )
+            // router.push( `/edit-receipt/${id}/contributions` )
             // if user is logged in post the receipt to database
             if ( session?.user.id ) {
                 await updateReceipt( editReceipt )
@@ -51,19 +66,19 @@ const UpdateReceipt = () => {
     }
 
     const updateReceipt = async ( receipt ) => {
-        /* try {
-            console.log( 'POSTING' )
-            const response = await fetch( '/api/receipt/new', {
-                method: 'POST',
-                body: JSON.stringify( { ...receipt, userId: session?.user.id } )
+        try {
+            console.log( 'UPDATING' )
+            const response = await fetch( `/api/receipt/${session?.user.id}/${receipt._id}`, {
+                method: 'PATCH',
+                body: JSON.stringify( { ...editReceipt, userId: session?.user.id } )
             } )
-            console.log( response )
             if ( response.ok ) {
-                setTimeout( () => router.push( "/create-receipt/contributions" ), 1500 )
+                console.log("UPDATED")
+                setTimeout( () => router.push( `/edit-receipt/${id}/contributions` ), 1500 )
             }
         } catch ( error ) {
             console.log( error )
-        } */
+        }
     }
 
     return (
@@ -84,6 +99,7 @@ const UpdateReceipt = () => {
             handleRemoveItem={ handleRemoveItem }
             handleSubmit={ handleUpdate }
             handleCancel={ handleCancel }
+            handleBack={ handleBack }
         />
     )
 }

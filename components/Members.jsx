@@ -2,7 +2,7 @@
 
 import MemberField from "./MemberField";
 
-const Members = ( { members, type, handleMemberChange, handleRemoveMember, handleEnterKey, handleContinue, handleCancel } ) => {
+const Members = ( { members, type, handleMemberChange, handleRemoveMember, handleEnterKey, handleContinue, handleBack } ) => {
     console.log(members)
     return (
         <section className="flex-start flex-col gap-4 w-full max-w-full sm:mt-4">
@@ -24,7 +24,7 @@ const Members = ( { members, type, handleMemberChange, handleRemoveMember, handl
             </div>
             <div>
                 <div className="flex gap-4 items-center mt-10">
-                    <span className="red_gradient text-lg font-medium cursor-pointer" onClick={handleCancel}>Cancel</span>
+                    <span className="red_gradient text-lg font-medium cursor-pointer" onClick={handleBack}>Back</span>
                     <button className="green_btn font-medium" onClick={ handleContinue }>Continue</button>
                 </div>
             </div>

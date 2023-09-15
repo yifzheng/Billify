@@ -175,7 +175,7 @@
 }
 
 .form_input_member {
-	@apply w-full flex rounded-lg mt-2 p-3 pr-24 text-ellipsis overflow-hidden text-lg text-gray-700 outline-0;
+	@apply w-full flex rounded-lg mt-2 p-3 pr-24 text-ellipsis overflow-hidden sm:text-lg text-base text-gray-700 outline-0;
 }
 
 .form_input_12 {
