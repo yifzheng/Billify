@@ -1,15 +1,17 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Profile from "@components/Profile"
+import axios from 'axios'
 
 const ProfilePage = () => {
     const [ receipts, setReceipts ] = useState( [] )
     const { data: session } = useSession()
-    const router = useParams()
-    const { id } = router
+    const params = useParams()
+    const { id } = params
+    const router = useRouter()
 
     // check if the current logged in user is viewing their own profile page
     if ( session?.user.id !== id ) {
@@ -18,8 +20,9 @@ const ProfilePage = () => {
 
     useEffect( () => {
         const fetchReceipts = async () => {
-            const response = await fetch( `/api/user/${session?.user.id}/receipts` )
-            const data = await response.json()
+            const response = await axios.get( `/api/user/${session?.user.id}/receipts`, { params: { userId: session?.user.id } } )
+
+            const data = await response.data
             // sort the data
             const sortedData = data.sort( ( a, b ) => new Date( b.createdAt ) - new Date( a.createdAt ) )
             setReceipts( sortedData )
@@ -32,7 +35,7 @@ const ProfilePage = () => {
         if ( hadConfirmed ) {
             try {
                 // delete receipt
-                await fetch( `/api/receipt/${receipt._id}`, {
+                await fetch( `/api/receipt/${session?.user.id}/${receipt._id}`, {
                     method: 'DELETE'
                 } )
                 // filter old receipt from state
@@ -44,10 +47,15 @@ const ProfilePage = () => {
         }
     }
 
+    const handleEditReceipt = (receiptId) => {
+        router.push(`/edit-receipt/${receiptId}`)
+    }
+
     return (
         <Profile
             receipts={ receipts }
             handleDelete={ handleDelete }
+            handleEdit={handleEditReceipt}
         />
     )
 }

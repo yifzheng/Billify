@@ -1,17 +1,17 @@
 'use client'
 
-import useReceiptStore from "@context/receiptStore";
 import { useState } from "react";
 import MemberBubble from "./MemberBubble";
 
-const ItemField = ( { item, index, handleItemChange } ) => {
-    const { members } = useReceiptStore() // retrieve members created in previous step
-    const [ owners, setOwners ] = useState( item.members || [] )
+const ItemField = ( { item, index, handleItemChange, members } ) => {
 
+    //const { members } = useReceiptStore() // retrieve members created in previous step
+    const [ owners, setOwners ] = useState( item.members || [] )
+   
     // remove names from owner state
-    const handleRemoveBubble = ( index ) => {
+    const handleRemoveBubble = ( idx ) => {
         const updatedOwners = [ ...owners ]
-        updatedOwners.splice( index, 1 )
+        updatedOwners.splice( idx, 1 )
         setOwners( updatedOwners )
         handleItemChange( index - 1, { ...item, members: updatedOwners } )
     }
@@ -82,7 +82,7 @@ const ItemField = ( { item, index, handleItemChange } ) => {
                             <div className="flex-start flex-wrap sm:flex-row gap-1">
                                 { owners.map( ( owner, idx ) =>
                                 (
-                                    <MemberBubble key={ idx } owner={ owner } index={ idx } onChange={ handleRemoveBubble } />
+                                    <MemberBubble key={ idx } owner={ owner } index={ idx } handleRemoveBubble={ handleRemoveBubble } />
                                 ) ) }
                             </div>
 

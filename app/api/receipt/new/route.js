@@ -5,7 +5,7 @@ export const POST = async (req, res) => {
 	// deconstruct the data from reqest body
 	const { resturantName, items, tax, tip, total, contribution, userId } =
 		await req.json();
-	console.log(contribution);
+
 	try {
 		await connectToDB(); // connect to db
 		// create a new receipt
@@ -19,7 +19,7 @@ export const POST = async (req, res) => {
 			contribution,
 		});
 		await newReceipt.save(); // attempt to save prompt
-		console.log("SAVED");
+
 		return new Response(JSON.stringify(newReceipt), { status: 201 });
 	} catch (error) {
 		console.error("Error creating receipt:", error);

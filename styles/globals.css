@@ -110,6 +110,10 @@
 	@apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-7xl pb-4;
 }
 
+.title_text {
+	@apply mt-5 text-4xl font-extrabold leading-[1.15] text-black sm:text-5xl pb-4;
+}
+
 .orange_gradient {
 	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
@@ -132,6 +136,10 @@
 
 .desc2 {
 	@apply mt-5 text-lg text-gray-700 sm:text-2xl max-w-4xl;
+}
+
+.desc3 {
+	@apply mt-1 text-lg text-gray-700 sm:text-2xl max-w-4xl;
 }
 
 .flex-center {
@@ -167,7 +175,7 @@
 }
 
 .form_input_member {
-	@apply w-full flex rounded-lg mt-2 p-3 pr-24 text-ellipsis overflow-hidden text-lg text-gray-700 outline-0;
+	@apply w-full flex rounded-lg mt-2 p-3 pr-24 text-ellipsis overflow-hidden sm:text-lg text-base text-gray-700 outline-0;
 }
 
 .form_input_12 {
@@ -199,6 +207,10 @@ option:hover {
 	color: #fff;
 }
 
+.receipt_layout {
+	@apply space-y-6 py-2 sm:columns-2 sm:gap-4 xl:columns-3 h-full;
+}
+
 .receipt_card {
-	@apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter min-w-[300px] sm:w-fit w-full h-fit;
+	@apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter min-w-[300px] sm:w-full h-fit;
 }

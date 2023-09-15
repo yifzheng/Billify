@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Down from "../public/icons/down.png"
 import Up from "../public/icons/up.png"
 
-const ReceiptCard = ( { receipt, handleDelete } ) => {
+const ReceiptCard = ( { receipt, handleDelete, handleEdit } ) => {
   const [ expanded, setExpanded ] = useState( false )
   const date = new Date( receipt.createdAt )
   const year = date.getFullYear()
@@ -21,7 +21,7 @@ const ReceiptCard = ( { receipt, handleDelete } ) => {
       <span className='flex-end mb-0 text-base text-gray-700'>{ month }/{ day }/{ year }</span>
       <h2 className='sm:text-2xl text-xl font-semibold font-inter text-gray-800'>{ receipt.resturantName }</h2>
       <div className="flex justify-between">
-        <p className='text-gray-700 text-lg font-inter'><b>Total:</b> ${ receipt.total.toFixed( 2 ) }</p>
+        <p className='text-gray-700 text-base font-inter'><b>Total:</b> ${ receipt.total.toFixed( 2 ) }</p>
       </div>
 
       { expanded &&
@@ -81,8 +81,8 @@ const ReceiptCard = ( { receipt, handleDelete } ) => {
         ) }
       <div className="flex justify-between items-center mt-1">
         <div className="flex gap-2">
-          <span className='font-inter green_gradient cursor-pointer text-sm'>Edit</span>
-          <span className='font-inter red_gradient cursor-pointer text-sm' onClick={ handleDelete }>Delete</span>
+          <span className='font-inter green_gradient cursor-pointer text-sm font-semibold' onClick={ handleEdit }>Edit</span>
+          <span className='font-inter red_gradient cursor-pointer text-sm font-semibold' onClick={ handleDelete }>Delete</span>
         </div>
         <button onClick={ toggleExpanded }>
           <Image

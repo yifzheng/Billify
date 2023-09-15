@@ -26,7 +26,7 @@ const MemberField = ( { member, index, handleEnterKey, handleRemoveMember, onCha
                     width={ 20 }
                     height={ 20 }
                     alt="remove"
-                    className="items-center absolute top-[53%] transform -translate-y-1/2 right-4 cursor-pointer"
+                    className="items-center absolute top-[55%] transform -translate-y-1/2 right-4 cursor-pointer"
                     onClick={ () => handleRemoveMember( member ) }
                 />
             </div>
