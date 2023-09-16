@@ -15,10 +15,11 @@ const EditReceipt = () => {
   const { id } = params
 
   const { isVerified } = useCaptchaStore()
-    // check if verified move back to home for verification and prevent verifications skipping
-    if ( !isVerified ) {
-        router.push( "/" )
-    }
+
+  // check if verified move back to home for verification and prevent verifications skipping
+  if ( !isVerified ) {
+    router.push( "/" )
+  }
 
 
   useEffect( () => {

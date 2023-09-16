@@ -14,14 +14,11 @@ const Home = () => {
   const handleVerification = async ( token ) => {
     await verifyCaptcha( token )
       .then( () => {
-        console.log( "VERIFIED" )
+
         setIsVerified( true )
       } )
       .catch( () => setIsVerified( false ) )
   }
-  console.log( 'Server-Side:', process.env.REACT_APP_RECAPTCHA_SITE_KEY );
-
-  console.log( 'Client-Side:', process.env.REACT_APP_RECAPTCHA_SITE_KEY );
 
   return (
     <>
