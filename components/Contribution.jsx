@@ -4,7 +4,7 @@ import useReceiptStore from "@context/receiptStore"
 import { useRouter } from "next/navigation"
 import ContributionField from "./ContributionField"
 
-const Contribution = ({ contribution, reset }) => {
+const Contribution = ( { total, contribution, reset } ) => {
     const router = useRouter()
 
 
@@ -25,6 +25,10 @@ const Contribution = ({ contribution, reset }) => {
                 { contribution.map( ( member, index ) => (
                     <ContributionField key={ index } name={ member.member } amount={ member.contribution } />
                 ) ) }
+                <footer className='flex justify-between w-full mt-4 px-1'>
+                    <span className='sm:text-xl text-base'><b>Total</b></span>
+                    <span className='sm:text-xl text-base'>${ total }</span>
+                </footer>
             </div>
             <div className="flex-start my-10 w-1/2">
                 <div className="black_btn cursor-pointer" onClick={ handleFinish }>Finish</div>
