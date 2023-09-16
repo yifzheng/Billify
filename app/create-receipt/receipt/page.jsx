@@ -6,16 +6,20 @@ import Form from '@components/Form'
 import useReceiptStore from '@context/receiptStore'
 import { calculateContributions } from '@utils/contribution'
 import useCaptchaStore from '@context/captchaStore'
+import { useEffect } from 'react'
 
 const CreateReceipt = () => {
     const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, setContribution, reset } = useReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
-    const { isVerified} = useCaptchaStore()
+    const { isVerified } = useCaptchaStore()
     // check if verified move back to home for verification and prevent verifications skipping
-    if ( !isVerified ) {
-        router.push( "/" )
-    }
+    useEffect( () => {
+        if ( !isVerified ) {
+            router.push( "/" )
+        }
+    }, [ isVerified ] )
+
 
     // handle item change
     const handleItemChange = ( index, item ) => {

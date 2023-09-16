@@ -16,9 +16,11 @@ const EditReceipt = () => {
   const { id } = params
 
   // check if verified move back to home for verification and prevent verifications skipping
-  if ( !isVerified ) {
-    router.push( "/" )
-  }
+  useEffect( () => {
+    if ( !isVerified ) {
+      router.push( "/" )
+    }
+  }, [ isVerified ] )
 
 
   useEffect( () => {
