@@ -30,7 +30,7 @@ const Home = () => {
               <span className="desc2">Please help us ensure the security of our website by verifying that you are a human and not a robot. This helps us protect against automated spam and unauthorized access.</span>
               <span className='sm:w-1/2'>Click the "I'm not a robot" checkbox below to prove you are a human. You may be presented with additional challenges if our system detects unusual activity.</span>
               <ReCAPTCHA
-                sitekey={ process.env.REACT_APP_RECAPTCHA_SITE_KEY }
+                sitekey={ process.env.REACT_APP_RECAPTCHA_SITE_KEY || '6LcZYxYoAAAAAAwiRjVeymHjbHxTj4LfjirQEDsJ' }
                 onChange={ handleVerification }
               />
             </section>
