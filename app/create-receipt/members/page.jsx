@@ -4,16 +4,19 @@ import Members from "@components/Members";
 import { useRouter } from "next/navigation";
 import useReceiptStore from "@context/receiptStore";
 import useCaptchaStore from "@context/captchaStore";
+import { useEffect } from "react";
 
 const page = () => {
     const { members, setMembers, reset } = useReceiptStore() // state storing all the members entered by the user
     const router = useRouter()
-    
+
     const { isVerified } = useCaptchaStore()
     // check if verified move back to home for verification and prevent verifications skipping
-    if ( !isVerified ) {
-        router.push( "/" )
-    }
+    useEffect( () => {
+        if ( !isVerified ) {
+            router.push( "/" )
+        }
+    }, [ isVerified ] )
 
     // handle member data changing
     const handleMemberChange = ( e, member, index ) => {

@@ -6,6 +6,7 @@ import Form from '@components/Form'
 import useEditReceiptStore from '@context/editReceiptStore'
 import { calculateContributions } from '@utils/contribution'
 import useCaptchaStore from '@context/captchaStore'
+import { useEffect } from 'react'
 
 
 const UpdateReceipt = () => {
@@ -17,10 +18,11 @@ const UpdateReceipt = () => {
 
     const { isVerified } = useCaptchaStore()
     // check if verified move back to home for verification and prevent verifications skipping
-    if ( !isVerified ) {
-        router.push( "/" )
-    }
-
+    useEffect( () => {
+        if ( !isVerified ) {
+            router.push( "/" )
+        }
+    }, [ isVerified ] )
 
     // handle item change
     const handleItemChange = ( index, item ) => {
