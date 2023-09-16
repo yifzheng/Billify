@@ -8,13 +8,12 @@ import { useEffect } from "react"
 
 
 const EditReceipt = () => {
+  const { isVerified } = useCaptchaStore()
   const { setMembers, setEditReceipt } = useEditReceiptStore()
   const router = useRouter()
   const { data: session } = useSession()
   const params = useParams()
   const { id } = params
-
-  const { isVerified } = useCaptchaStore()
 
   // check if verified move back to home for verification and prevent verifications skipping
   if ( !isVerified ) {
