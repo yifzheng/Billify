@@ -14,7 +14,7 @@ const EditReceipt = () => {
   const params = useParams()
   const { id } = params
 
-  const { isVerified } = useCaptchaStore())
+  const { isVerified } = useCaptchaStore()
     // check if verified move back to home for verification and prevent verifications skipping
     if ( !isVerified ) {
         router.push( "/" )
