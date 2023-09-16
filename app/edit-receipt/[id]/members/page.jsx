@@ -1,6 +1,7 @@
 'use client'
 
 import Members from '@components/Members'
+import useCaptchaStore from '@context/captchaStore'
 import useEditReceiptStore from '@context/editReceiptStore'
 import { useParams, useRouter } from 'next/navigation'
 
@@ -10,6 +11,13 @@ const UpdateMembers = () => {
     const params = useParams()
     const { id } = params
     const router = useRouter()
+
+    const { isVerified } = useCaptchaStore()
+    // check if verified move back to home for verification and prevent verifications skipping
+    if ( !isVerified ) {
+        router.push( "/" )
+    }
+
 
     // handle member data changing
     const handleMemberChange = ( e, member, index ) => {

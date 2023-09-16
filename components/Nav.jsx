@@ -10,11 +10,13 @@ import Create from "../public/icons/compose.png"
 import Exit from "../public/icons/exit.png"
 import Google from "../public/icons/google.png"
 import useReceiptStore from '@context/receiptStore'
+import useCaptchaStore from '@context/captchaStore'
 
 const Nav = () => {
     const { data: session } = useSession()
     const router = useRouter()
     const { reset } = useReceiptStore()
+    const { isVerified } = useCaptchaStore()
     // login providers such as Google and etc...
     const [ providers, setProviders ] = useState( null )
     const [ toggleDropDown, setToggleDropDown ] = useState( false )
@@ -36,7 +38,7 @@ const Nav = () => {
 
     return (
         <nav className='flex-between w-full mb-16 pt-3'>
-            <div className='flex gap-2 flex-center cursor-pointer' onClick={handleHome}>
+            <div className='flex gap-2 flex-center cursor-pointer' onClick={ handleHome }>
                 <Image
                     src={ Logo }
                     width={ 150 }
@@ -44,7 +46,7 @@ const Nav = () => {
                     alt='splittr_logo'
                     className='object-contain'
                 />
-                {/* <span className='logo_text blue_gradient'>Splittr</span> */}
+                {/* <span className='logo_text blue_gradient'>Splittr</span> */ }
             </div>
 
             {/* Desktop Navigation (When min width is greater than 640px display flex else hidden) */ }
@@ -52,7 +54,7 @@ const Nav = () => {
                 {
                     session ? (
                         <div className="flex gap-3 md:gap-5 items-center">
-                            <Link href={ "/create-receipt/members" } className='green_btn flex gap-1'>
+                            { isVerified && <Link href={ "/create-receipt/members" } className='green_btn flex gap-1'>
                                 <Image
                                     src={ Create }
                                     width={ 25 }
@@ -60,7 +62,7 @@ const Nav = () => {
                                     alt='Create Receipt'
                                 />
                                 <span className='text-sm font-medium'>Create</span>
-                            </Link>
+                            </Link> }
                             <button type="button" onClick={ signOut } className='outline_btn flex gap-1'>
                                 <Image
                                     src={ Exit }
@@ -76,7 +78,7 @@ const Nav = () => {
                                 height={ 40 }
                                 className='rounded-full border-solid border-2 border-amber-600 cursor-pointer'
                                 alt='profile'
-                                onClick={() => router.push(`/profile/${session?.user.id}`)}
+                                onClick={ () => router.push( `/profile/${session?.user.id}` ) }
                             />
                         </div>
                     )
@@ -116,13 +118,13 @@ const Nav = () => {
                                 />
                                 { toggleDropDown && (
                                     <div className="dropdown">
-                                        <Link
+                                        { isVerified && <Link
                                             href={ "/create-receipt/members" }
                                             className='dropdown_link'
                                             onClick={ () => setToggleDropDown( false ) }
                                         >
                                             Create Receipt
-                                        </Link>
+                                        </Link> }
                                         <Link
                                             href={ `/profile/${session?.user.id}` }
                                             className='dropdown_link'

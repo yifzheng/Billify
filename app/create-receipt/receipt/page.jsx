@@ -5,11 +5,17 @@ import { useRouter } from 'next/navigation'
 import Form from '@components/Form'
 import useReceiptStore from '@context/receiptStore'
 import { calculateContributions } from '@utils/contribution'
+import useCaptchaStore from '@context/captchaStore'
 
 const CreateReceipt = () => {
     const { members, resturantName, setResturantName, items, setItems, tax, setTax, tip, setTip, total, setTotal, setContribution, reset } = useReceiptStore()
     const router = useRouter()
     const { data: session } = useSession()
+    const { isVerified} = useCaptchaStore()
+    // check if verified move back to home for verification and prevent verifications skipping
+    if ( !isVerified ) {
+        router.push( "/" )
+    }
 
     // handle item change
     const handleItemChange = ( index, item ) => {
@@ -29,6 +35,19 @@ const CreateReceipt = () => {
         setItems( updatedItems );
     };
 
+    // calculate the total for the entire receipt
+    const calculateTotal = () => {
+        const itemsAmount = items.reduce( ( accumulator, currentValue ) => {
+            const amount = currentValue.amount
+            return accumulator + amount
+        }, 0 )
+        const taxPercentage = tax > 0 ? parseFloat( tax / 100 + 1 ) : 1
+        const tipPercentage = tip > 0 ? parseFloat( tip / 100 + 1 ) : 1
+        const totalAmount = parseFloat( itemsAmount * taxPercentage * tipPercentage ).toFixed( 2 )
+        setTotal( totalAmount )
+        return totalAmount
+    }
+
     // reset creation process
     const handleCancel = () => {
         reset()
@@ -40,18 +59,18 @@ const CreateReceipt = () => {
         e.preventDefault()
         // if there are members available, to prevent any manual url routing
         if ( members.length > 0 ) {
+            const totalAmount = calculateTotal()
             const receipt = {
                 resturantName,
                 items,
                 tax,
                 tip,
-                total
+                total: totalAmount
             }
             const contribution = calculateContributions( receipt, members )
             receipt.contribution = contribution;
-
+            console.log( receipt )
             setContribution( contribution )
-
             // if user is logged in post the receipt to database
             if ( session?.user.id ) {
                 await postReceipt( receipt )
@@ -92,6 +111,7 @@ const CreateReceipt = () => {
             total={ total }
             setTotal={ setTotal }
             type={ 'Create' }
+            calculateTotal={ calculateTotal }
             handleItemChange={ handleItemChange }
             handleAddItem={ handleAddItem }
             handleRemoveItem={ handleRemoveItem }

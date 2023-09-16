@@ -3,11 +3,11 @@
 import { useState } from "react";
 import MemberBubble from "./MemberBubble";
 
-const ItemField = ( { item, index, handleItemChange, members } ) => {
+const ItemField = ( { item, index, handleItemChange, members, calculateTotal,} ) => {
 
     //const { members } = useReceiptStore() // retrieve members created in previous step
     const [ owners, setOwners ] = useState( item.members || [] )
-   
+
     // remove names from owner state
     const handleRemoveBubble = ( idx ) => {
         const updatedOwners = [ ...owners ]
@@ -25,6 +25,12 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
         }
     }
 
+    const handleItemAmount = ( e ) => {
+        const newItemAmount = parseFloat( e.target.value );
+        handleItemChange( index - 1, { ...item, amount: newItemAmount } );
+        calculateTotal();
+    }
+
     return (
         <label>
             <span className="font-satoshi font-semibold text-lg text-gray-700 ">
@@ -33,7 +39,7 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
             <section className="item-field flex-col ">
                 <section className="flex-start gap-2">
                     <label className="w-full">
-                        <span className="font-satoshi font-medium text-sm text-gray-700">
+                        <span className="font-satoshi font-semibold text-sm text-gray-700">
                             Name
                         </span>
                         <input
@@ -46,7 +52,7 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
                         />
                     </label>
                     <label className="w-1/3">
-                        <span className="font-satoshi font-medium text-sm text-gray-700">
+                        <span className="font-satoshi font-semibold text-sm text-gray-700">
                             Quantity
                         </span>
                         <input
@@ -59,7 +65,7 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
                         />
                     </label>
                     <label className="w-1/3">
-                        <span className="font-satoshi font-medium text-sm text-gray-700">
+                        <span className="font-satoshi font-semibold text-sm text-gray-700">
                             Amount
                         </span>
                         <input
@@ -69,13 +75,13 @@ const ItemField = ( { item, index, handleItemChange, members } ) => {
                             className="form_input"
                             step={ 0.01 }
                             value={ item.amount }
-                            onChange={ ( e ) => handleItemChange( index - 1, { ...item, amount: e.target.value } ) }
+                            onChange={ handleItemAmount }
                         />
                     </label>
                 </section>
                 <section>
                     <label className="w-full">
-                        <span className="font-satoshi font-medium text-sm text-gray-700">
+                        <span className="font-satoshi font-semibold text-sm text-gray-700">
                             Members
                         </span>
                         <div className="flex-start sm:max-w-full my-2">

@@ -18,7 +18,10 @@ const Form = (
         setTip,
         total,
         setTotal,
+        itemsTotal,
+        setItemsTotal,
         type,
+        calculateTotal,
         handleItemChange,
         handleAddItem,
         handleRemoveItem,
@@ -28,6 +31,18 @@ const Form = (
     } ) => {
 
     const router = useRouter()
+
+    // edit change in tax
+    const handleTaxChange = ( e ) => {
+        const newTax = parseFloat( e.target.value );
+        setTax( newTax );
+    }
+
+    // edit change in tip
+    const handleTipChange = ( e ) => {
+        const newTip = parseFloat( e.target.value );
+        setTip( newTip );
+    }
 
     return (
         <section className='w-full max-w-full flex-start flex-col mb-16 sm:mt-4'>
@@ -42,7 +57,7 @@ const Form = (
                     </span>
                     <input type="text" required className='form_input' name="name" placeholder='Akira&#39;s Omurice' value={ resturantName } onChange={ ( e ) => setResturantName( e.target.value ) } />
                 </label>
-                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } members={ members } /> ) ) }
+                { items.map( ( item, index ) => ( <ItemField key={ index } item={ item } index={ index + 1 } handleItemChange={ handleItemChange } members={ members } calculateTotal={ calculateTotal } /> ) ) }
                 <div className="buttons flex max-w-full gap-1">
                     <button type='button' onClick={ handleAddItem } className='green_btn flex gap-1 w-1/2'>
                         <Image
@@ -67,44 +82,44 @@ const Form = (
                 <div className='item-field flex-col '>
                     <div className='flex-start gap-2'>
                         <label className="w-full">
-                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Tax</span>
+                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Tax (%)</span>
                             <input
                                 type="number"
-                                placeholder='10.98'
+                                placeholder='8.875'
                                 name='tax'
                                 value={ tax }
                                 step={ 0.01 }
-                                onChange={ ( e ) => setTax( e.target.value ) }
+                                onChange={ handleTaxChange }
                                 className='form_input'
                                 required
                             />
                         </label>
                         <label className="w-full">
-                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Tips</span>
+                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Tips (%)</span>
                             <input
                                 type="number"
-                                placeholder='11.00'
+                                placeholder='18'
                                 name='tip'
                                 className='form_input'
                                 step={ 0.01 }
                                 value={ tip }
-                                onChange={ ( e ) => setTip( e.target.value ) }
+                                onChange={ handleTipChange }
                                 required
                             />
                         </label>
-                        <label className="w-full">
-                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Total</span>
+                        {/* <label className="w-full">
+                            <span className='font-satoshi font-semibold text-lg text-gray-700'>Total ($)</span>
                             <input
                                 type="number"
                                 placeholder='24.35'
                                 name='total'
                                 className='form_input'
                                 step={ 0.01 }
-                                value={ total }
-                                onChange={ ( e ) => setTotal( e.target.value ) }
+                                value={ itemsTotal * ( tax / 100 + 1 ) * ( tip / 100 + 1 ) }
+                                readOnly
                                 required
                             />
-                        </label>
+                        </label> */}
                     </div>
                 </div>
                 <div className="flex justify-between">
