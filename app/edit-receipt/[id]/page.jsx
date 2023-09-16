@@ -1,5 +1,6 @@
 'use client'
 
+import useCaptchaStore from "@context/captchaStore"
 import useEditReceiptStore from "@context/editReceiptStore"
 import { useSession } from "next-auth/react"
 import { useParams, useRouter } from "next/navigation"
@@ -12,6 +13,13 @@ const EditReceipt = () => {
   const { data: session } = useSession()
   const params = useParams()
   const { id } = params
+
+  const { isVerified } = useCaptchaStore())
+    // check if verified move back to home for verification and prevent verifications skipping
+    if ( !isVerified ) {
+        router.push( "/" )
+    }
+
 
   useEffect( () => {
     const fetchReceipt = async () => {

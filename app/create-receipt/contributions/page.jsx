@@ -5,6 +5,7 @@ import useReceiptStore from "@context/receiptStore"
 
 const Contributions = () => {
     const { total, contribution, reset } = useReceiptStore()
+    
     return (
         <Contribution
             total={ total }
